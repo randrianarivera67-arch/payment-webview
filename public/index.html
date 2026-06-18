@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#04122e" />
+<title>Dépôt — Ultra Premium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+/* =========================================================================
+ *  ULTRA PREMIUM — SLife Gateway · styles (SVG icon edition)
+ * ========================================================================= */
+:root{
+  --navy-0:#020a1f; --navy-1:#04122e; --navy-2:#071c44; --navy-3:#0a2a63;
+  --line:  #2f6df0;
+  --line-soft:rgba(80,150,255,.35);
+  --glow:  #1e7bff;
+  --gold-1:#f7e7a8; --gold-2:#d9af45; --gold-3:#9a7b22;
+  --ice:   #bfe0ff;
+  --txt:   #eaf2ff;
+  --txt-dim:#9fb6d8;
+  --ok:    #2bd07a;
+  --warn:  #ffce4d;
+  --danger:#ff5a6a;
+  --safe-top:env(safe-area-inset-top,0px);
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100%}
+body{
+  font-family:"Inter",system-ui,sans-serif;
+  color:var(--txt);
+  background:
+    radial-gradient(120% 80% at 50% -5%, #0a2a63 0%, var(--navy-1) 45%, var(--navy-0) 100%) fixed,
+    var(--navy-0);
+  min-height:100dvh;
+  padding:calc(var(--safe-top) + 18px) 14px calc(var(--safe-bottom) + 24px);
+  position:relative; overflow-x:hidden;
+}
+.hidden{display:none !important}
+.icon{display:inline-block;vertical-align:middle;flex:none}
+svg{display:block}
+
+/* ---------- Crystaux décoratifs (SVG) ---------- */
+.crystals{position:fixed;top:0;bottom:0;width:200px;z-index:-1;pointer-events:none;opacity:1}
+.crystals--l{left:0}
+.crystals--r{right:0;transform:scaleX(-1)}
+.crystals svg{width:100%;height:100%}
+
+/* ---------- Frame ---------- */
+.frame{max-width:540px;margin:0 auto;position:relative;z-index:1}
+
+/* ---------- Ticket (carte principale) ---------- */
+.ticket{
+  background:linear-gradient(180deg,rgba(7,28,68,.92),rgba(4,18,46,.96));
+  border:2px solid transparent;
+  border-radius:22px;
+  padding:22px 18px 16px;
+  background-clip:padding-box;
+  box-shadow:0 0 0 1px rgba(120,180,255,.25),0 18px 50px rgba(0,0,0,.6),inset 0 0 40px rgba(20,80,180,.18);
+  position:relative;
+}
+.ticket::before{
+  content:"";position:absolute;inset:-2px;border-radius:22px;z-index:-1;
+  background:linear-gradient(180deg,var(--gold-1),var(--gold-3) 40%,var(--navy-2) 70%);
+  opacity:.55;
+}
+
+/* ---------- Brand ---------- */
+.brand{text-align:center;padding:4px 0 14px;position:relative}
+.brand__crest{
+  display:flex;justify-content:center;margin-bottom:4px;
+  filter:drop-shadow(0 0 18px rgba(120,180,255,.55)) drop-shadow(0 0 30px rgba(216,175,69,.25));
+}
+.brand__name{
+  font-family:"Cinzel",serif;font-weight:800;letter-spacing:.07em;line-height:.92;
+  font-size:38px;
+  background:linear-gradient(180deg,#fff,#f3dd92 45%,#b9892f 75%,#fff6d8);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 2px 6px rgba(0,0,0,.5));
+}
+.brand__name span{
+  display:block;font-size:27px;letter-spacing:.2em;
+  background:linear-gradient(180deg,#eaf2ff,#9bb6d8 60%,#5e7baa);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  margin-top:2px;
+}
+.brand__sub{font-family:"Rajdhani";font-weight:600;font-size:11.5px;letter-spacing:.32em;color:var(--ice);margin-top:6px}
+
+/* ---------- Banner (hexagon) ---------- */
+.banner{
+  position:relative;
+  text-align:center;font-family:"Rajdhani";font-weight:600;font-size:16px;letter-spacing:.02em;
+  color:var(--txt);
+  border:1px solid var(--gold-2);
+  clip-path:polygon(3% 0,97% 0,100% 50%,97% 100%,3% 100%,0 50%);
+  padding:11px 22px;margin-bottom:16px;
+  background:linear-gradient(180deg,rgba(20,70,160,.35),rgba(4,18,46,.5));
+  box-shadow:0 0 18px rgba(216,175,69,.18), inset 0 0 14px rgba(40,120,255,.15);
+}
+.banner b{color:var(--ice)} .banner em{color:var(--gold-1);font-style:normal}
+
+/* ---------- Hero (montant) ---------- */
+.hero{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:stretch;margin-bottom:12px}
+.hero__amount{
+  border:1px solid var(--line-soft);border-radius:14px;padding:14px 16px;
+  background:linear-gradient(180deg,rgba(10,42,99,.55),rgba(4,18,46,.4));
+  display:flex;flex-direction:column;justify-content:center;
+}
+.hero__amount strong{
+  font-family:"Rajdhani";font-weight:700;font-size:42px;line-height:1;color:#fff;
+  font-variant-numeric:tabular-nums;text-shadow:0 0 18px rgba(120,180,255,.45);
+}
+.hero__amount span#amountDevise{font-size:25px}
+.hero__amount>span:last-child{font-size:13px;color:var(--txt-dim);margin-top:5px}
+.hero__badge{
+  min-width:138px;border-radius:14px;
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,#2a6cf2,#0b2f86);
+  box-shadow:0 0 26px rgba(40,120,255,.55),inset 0 1px 0 rgba(255,255,255,.25);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+  font-family:"Rajdhani";font-weight:700;font-size:21px;letter-spacing:.04em;color:#fff;
+  cursor:pointer;transition:transform .08s;
+}
+.hero__badge:active{transform:scale(.97)}
+.hero__arrow{width:26px;height:26px}
+
+/* ---------- Grid2 / chips ---------- */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.chip,.callrow{
+  display:flex;align-items:center;gap:11px;
+  border:1px solid var(--line-soft);border-radius:12px;padding:10px 13px;
+  background:linear-gradient(180deg,rgba(10,42,99,.4),transparent);
+}
+.chip__ic,.callrow__ic{width:20px;height:20px;color:var(--ice);filter:drop-shadow(0 0 6px rgba(80,150,255,.6))}
+.chip small,.callrow small{display:block;font-size:10px;letter-spacing:.09em;color:var(--txt-dim)}
+.chip b,.callrow b{font-family:"Rajdhani";font-size:16px;color:var(--ice)}
+.callrow{margin-bottom:13px}
+.callrow b{font-size:21px;letter-spacing:.02em}
+
+/* ---------- Note ---------- */
+.note{
+  display:flex;gap:9px;align-items:flex-start;
+  font-size:12.5px;line-height:1.45;color:var(--txt);
+  border:1px solid rgba(43,208,122,.32);border-radius:12px;padding:11px 13px;margin-bottom:13px;
+  background:linear-gradient(180deg,rgba(20,90,60,.18),transparent);
+}
+.note b{color:var(--ok)} .note__link{color:var(--ice);text-decoration:underline;cursor:pointer}
+.note__ic{width:19px;height:19px;color:var(--ok);flex:none;margin-top:1px;filter:drop-shadow(0 0 6px rgba(43,208,122,.5))}
+
+/* ---------- Code à utiliser + bouton copier ---------- */
+.codebox{
+  border:1px solid var(--line-soft);border-radius:14px;padding:13px 14px;margin-bottom:14px;
+  background:linear-gradient(180deg,rgba(10,42,99,.4),rgba(4,18,46,.3));
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+}
+.codebox__label{font-family:"Rajdhani";font-size:11px;letter-spacing:.1em;color:var(--txt-dim);width:100%}
+.codebox__code{
+  flex:1;min-width:0;
+  font-family:"Rajdhani","Courier New",monospace;font-weight:700;
+  font-size:23px;letter-spacing:.01em;color:#fff;word-break:break-all;
+  text-shadow:0 0 14px rgba(120,180,255,.55);
+}
+.copybtn{
+  flex:none;display:flex;align-items:center;gap:8px;
+  border:1px solid var(--line);border-radius:10px;cursor:pointer;
+  font-family:"Rajdhani";font-weight:700;font-size:14px;letter-spacing:.04em;
+  color:#fff;background:linear-gradient(180deg,#2a6cf2,#0b2f86);padding:10px 18px;
+  box-shadow:0 0 18px rgba(40,120,255,.4), inset 0 1px 0 rgba(255,255,255,.2);
+  transition:transform .08s;
+}
+.copybtn:active{transform:scale(.96)}
+.copybtn svg{width:16px;height:16px}
+
+/* ---------- Opérateur pill ---------- */
+.op-pill{
+  width:max-content;margin:0 auto 16px;
+  display:flex;align-items:center;gap:9px;
+  font-family:"Rajdhani";font-weight:700;letter-spacing:.08em;font-size:15px;color:var(--gold-1);
+  border:1px solid var(--gold-2);border-radius:999px;padding:7px 20px;
+  background:linear-gradient(180deg,rgba(10,42,99,.6),rgba(4,18,46,.6));
+  box-shadow:0 0 18px rgba(216,175,69,.25);
+}
+.op-pill__dot{width:10px;height:10px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px var(--ok);animation:pulse 1.8s ease-in-out infinite}
+
+/* ---------- Steps ---------- */
+.steps{list-style:none;display:flex;flex-direction:column;gap:13px;margin-bottom:13px;
+  border:1px solid var(--line-soft);border-radius:14px;padding:16px}
+.steps>li{display:flex;gap:13px;align-items:flex-start}
+.steps__n{
+  flex:none;width:27px;height:27px;border-radius:50%;
+  background:linear-gradient(180deg,#2a6cf2,#0b2f86);color:#fff;
+  display:grid;place-items:center;font-family:"Rajdhani";font-weight:700;font-size:14px;
+  box-shadow:0 0 10px rgba(40,120,255,.6)
+}
+.steps p{font-size:13.5px;line-height:1.5;color:var(--txt)} .steps b{color:var(--ice)}
+.steps>li>div{flex:1}
+
+.box{
+  display:flex;align-items:center;gap:11px;margin-top:9px;flex-wrap:wrap;
+  border:1px solid var(--line-soft);border-radius:12px;padding:11px 13px;
+  background:linear-gradient(180deg,rgba(10,42,99,.4),transparent);
+}
+.box small{display:block;font-size:10px;letter-spacing:.08em;color:var(--txt-dim)}
+.box b{font-family:"Rajdhani";font-size:20px;color:var(--ice)}
+.box>div:first-child{flex:1}
+.box--ok{border-color:rgba(43,208,122,.4)}
+.box__ic{width:22px;height:22px;color:var(--gold-1);filter:drop-shadow(0 0 6px rgba(216,175,69,.5))}
+.box__check{color:var(--ok);font-size:22px;margin-left:auto;width:22px;height:22px}
+
+.copy{
+  flex:none;display:flex;align-items:center;gap:7px;
+  border:1px solid var(--line);border-radius:9px;cursor:pointer;
+  font-family:"Rajdhani";font-weight:700;font-size:12.5px;letter-spacing:.04em;
+  color:#fff;background:linear-gradient(180deg,#2a6cf2,#0b2f86);padding:9px 13px;
+  box-shadow:0 0 14px rgba(40,120,255,.35);
+}
+.copy:active{transform:scale(.96)}
+.copy svg{width:14px;height:14px}
+
+/* ---------- Warn / status / back ---------- */
+.warn{
+  display:flex;gap:9px;align-items:flex-start;
+  font-size:12px;line-height:1.45;color:var(--warn);text-align:left;
+  border:1px solid rgba(255,206,77,.35);border-radius:12px;padding:10px 13px;margin-bottom:13px;
+  background:linear-gradient(180deg,rgba(120,90,10,.18),transparent);
+}
+.warn__ic{width:19px;height:19px;color:var(--warn);flex:none;margin-top:1px;filter:drop-shadow(0 0 6px rgba(255,206,77,.5))}
+
+.status{
+  display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;
+  text-align:center;font-family:"Rajdhani";font-weight:700;letter-spacing:.1em;font-size:17px;
+  color:var(--gold-1);border:1px solid var(--gold-2);border-radius:12px;padding:13px;margin-bottom:13px;
+  background:linear-gradient(180deg,rgba(10,42,99,.4),transparent);
+  box-shadow:0 0 16px rgba(216,175,69,.15);
+}
+.status__ic{width:22px;height:22px;filter:drop-shadow(0 0 6px rgba(247,231,168,.6))}
+.status--ok{color:var(--ok);border-color:rgba(43,208,122,.5)}
+.status--fail{color:var(--danger);border-color:rgba(255,90,106,.5)}
+
+.back-btn{
+  width:100%;display:flex;align-items:center;justify-content:center;gap:9px;
+  border:1px solid var(--line-soft);border-radius:12px;cursor:pointer;
+  font-family:"Rajdhani";font-weight:600;letter-spacing:.06em;font-size:14px;color:var(--ice);
+  background:linear-gradient(180deg,rgba(10,42,99,.5),rgba(4,18,46,.5));padding:13px;margin-bottom:13px;
+  transition:transform .08s;
+}
+.back-btn:active{transform:scale(.99)}
+.back-btn svg{width:16px;height:16px}
+
+.incident{display:flex;gap:9px;align-items:flex-start;font-size:11.5px;line-height:1.55;color:var(--txt-dim);
+  border-top:1px solid var(--line-soft);padding:13px 4px 11px}
+.incident b{color:var(--ice)}
+.incident__ic{width:16px;height:16px;color:var(--warn);flex:none;margin-top:2px}
+
+.foot{
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;align-items:center;
+  border-top:1px solid var(--line-soft);padding-top:12px;font-size:10.5px;color:var(--txt-dim);
+}
+.foot__l{display:flex;align-items:center;gap:8px}
+.foot__l svg{width:22px;height:22px;flex:none}
+.foot b{color:var(--ice);font-family:"Rajdhani";font-size:13px}
+.foot__mid{text-align:center;line-height:1.35}
+.foot__r{text-align:right;display:flex;align-items:center;justify-content:flex-end;gap:4px}
+.foot__r svg{width:12px;height:12px;color:var(--danger)}
+
+/* ---------- Toast ---------- */
+.toast{position:fixed;left:50%;bottom:calc(var(--safe-bottom) + 22px);transform:translateX(-50%);
+  display:flex;align-items:center;gap:8px;
+  background:linear-gradient(180deg,#0b2f86,#04122e);color:#fff;border:1px solid var(--line);
+  padding:11px 20px;border-radius:999px;font-size:13px;font-weight:600;z-index:50;
+  box-shadow:0 8px 24px rgba(0,0,0,.5);animation:rise .25s ease}
+.toast svg{width:16px;height:16px;color:var(--ok)}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.85)}}
+@keyframes rise{from{opacity:0;transform:translate(-50%,8px)}}
+@keyframes sparkle{0%,100%{opacity:.3;transform:scale(.7)}50%{opacity:1;transform:scale(1.15)}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
+
+@media (max-width:380px){
+  .brand__name{font-size:32px} .hero__amount strong{font-size:34px}
+  .codebox__code{font-size:18px}
+  .codebox{flex-direction:column;align-items:stretch}
+  .codebox__code{text-align:center;width:100%}
+  .copybtn{width:100%;justify-content:center}
+  .copy{width:100%;justify-content:center;margin-top:8px}
+  .box>div:first-child{flex-basis:100%}
+  .foot{grid-template-columns:1fr;text-align:center;gap:10px}
+  .foot__l{justify-content:center}
+  .foot__mid{text-align:center}
+  .foot__r{justify-content:center}
+}
+</style>
+</head>
+<body data-operator="mvola">
+
+  <!-- Crystaux décoratifs SVG -->
+  <div class="crystals crystals--l" aria-hidden="true">
+    <svg viewBox="0 0 200 1000" preserveAspectRatio="xMinYMin slice">
+      <defs>
+        <linearGradient id="crystalGradL" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#8fd0ff"/>
+          <stop offset="40%" stop-color="#2e7bff"/>
+          <stop offset="75%" stop-color="#0d3aa8"/>
+          <stop offset="100%" stop-color="#041a4f"/>
+        </linearGradient>
+        <linearGradient id="crystalGradL2" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#6fc3ff"/>
+          <stop offset="60%" stop-color="#1c5bd6"/>
+          <stop offset="100%" stop-color="#06205e"/>
+        </linearGradient>
+        <filter id="glowL" x="-80%" y="-80%" width="260%" height="260%">
+          <feGaussianBlur stdDeviation="9" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <g filter="url(#glowL)">
+        <polygon points="90,0 170,70 145,150 175,210 90,260 10,210 35,140 0,55" fill="url(#crystalGradL)" opacity="0.95"/>
+        <polygon points="35,180 90,210 75,300 100,360 35,400 -15,335 5,260" fill="url(#crystalGradL2)" opacity="0.8" transform="rotate(8 50 290)"/>
+        <polygon points="60,360 130,390 110,470 70,520 15,470 5,390" fill="url(#crystalGradL)" opacity="0.65" transform="rotate(-6 60 440)"/>
+        <polygon points="30,480 80,500 65,580 25,620 -10,565" fill="url(#crystalGradL2)" opacity="0.5" transform="rotate(4 40 550)"/>
+      </g>
+      <g>
+        <path d="M62 18 L70 4 L78 18 L92 26 L78 34 L70 48 L62 34 L48 26 Z" fill="#fff" opacity="0.85">
+          <animate attributeName="opacity" values="0.25;1;0.25" dur="2.2s" repeatCount="indefinite"/>
+        </path>
+        <path d="M118 50 L123 40 L128 50 L138 55 L128 60 L123 70 L118 60 L108 55 Z" fill="#fff" opacity="0.7">
+          <animate attributeName="opacity" values="1;0.2;1" dur="1.8s" repeatCount="indefinite"/>
+        </path>
+        <circle cx="45" cy="220" r="3" fill="#bfe0ff"><animate attributeName="opacity" values="0.3;1;0.3" dur="2.1s" repeatCount="indefinite"/></circle>
+        <circle cx="100" cy="400" r="2.6" fill="#fff"><animate attributeName="opacity" values="0.9;0.2;0.9" dur="2.6s" repeatCount="indefinite"/></circle>
+        <circle cx="55" cy="520" r="2.4" fill="#fff"><animate attributeName="opacity" values="0.2;1;0.2" dur="2.4s" repeatCount="indefinite"/></circle>
+      </g>
+    </svg>
+  </div>
+  <div class="crystals crystals--r" aria-hidden="true">
+    <svg viewBox="0 0 200 1000" preserveAspectRatio="xMinYMin slice">
+      <defs>
+        <linearGradient id="crystalGradR" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#8fd0ff"/>
+          <stop offset="40%" stop-color="#2e7bff"/>
+          <stop offset="75%" stop-color="#0d3aa8"/>
+          <stop offset="100%" stop-color="#041a4f"/>
+        </linearGradient>
+        <linearGradient id="crystalGradR2" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#6fc3ff"/>
+          <stop offset="60%" stop-color="#1c5bd6"/>
+          <stop offset="100%" stop-color="#06205e"/>
+        </linearGradient>
+        <filter id="glowR" x="-80%" y="-80%" width="260%" height="260%">
+          <feGaussianBlur stdDeviation="9" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <g filter="url(#glowR)">
+        <polygon points="90,0 170,70 145,150 175,210 90,260 10,210 35,140 0,55" fill="url(#crystalGradR)" opacity="0.95"/>
+        <polygon points="35,180 90,210 75,300 100,360 35,400 -15,335 5,260" fill="url(#crystalGradR2)" opacity="0.8" transform="rotate(8 50 290)"/>
+        <polygon points="60,360 130,390 110,470 70,520 15,470 5,390" fill="url(#crystalGradR)" opacity="0.65" transform="rotate(-6 60 440)"/>
+        <polygon points="30,480 80,500 65,580 25,620 -10,565" fill="url(#crystalGradR2)" opacity="0.5" transform="rotate(4 40 550)"/>
+      </g>
+      <g>
+        <path d="M62 22 L70 8 L78 22 L92 30 L78 38 L70 52 L62 38 L48 30 Z" fill="#fff" opacity="0.8">
+          <animate attributeName="opacity" values="0.9;0.2;0.9" dur="2.3s" repeatCount="indefinite"/>
+        </path>
+        <path d="M118 55 L123 45 L128 55 L138 60 L128 65 L123 75 L118 65 L108 60 Z" fill="#fff" opacity="0.7">
+          <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+        </path>
+        <circle cx="48" cy="240" r="3" fill="#bfe0ff"><animate attributeName="opacity" values="0.8;0.2;0.8" dur="2.4s" repeatCount="indefinite"/></circle>
+        <circle cx="95" cy="410" r="2.6" fill="#fff"><animate attributeName="opacity" values="0.2;1;0.2" dur="2.7s" repeatCount="indefinite"/></circle>
+        <circle cx="58" cy="530" r="2.4" fill="#fff"><animate attributeName="opacity" values="1;0.3;1" dur="2.2s" repeatCount="indefinite"/></circle>
+      </g>
+    </svg>
+  </div>
+
+  <main class="frame" id="app">
+
+    <!-- ÉTAT : chargement -->
+    <section class="state" id="stateLoading" style="max-width:460px;margin:30px auto 0;text-align:center;background:linear-gradient(180deg,rgba(7,28,68,.9),rgba(4,18,46,.95));border:1px solid var(--line-soft);border-radius:18px;padding:40px 24px;display:flex;flex-direction:column;align-items:center;gap:14px;box-shadow:0 18px 50px rgba(0,0,0,.5)">
+      <svg class="icon" width="44" height="44" viewBox="0 0 50 50" style="animation:spin .9s linear infinite">
+        <circle cx="25" cy="25" r="20" fill="none" stroke="rgba(80,150,255,.25)" stroke-width="4"/>
+        <path d="M25 5 A20 20 0 0 1 45 25" fill="none" stroke="#f7e7a8" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+      <p style="font-size:14px;color:var(--txt-dim)">Chargement de la commande…</p>
+    </section>
+
+    <!-- ÉTAT : erreur -->
+    <section class="state hidden" id="stateError" style="max-width:460px;margin:30px auto 0;text-align:center;background:linear-gradient(180deg,rgba(7,28,68,.9),rgba(4,18,46,.95));border:1px solid var(--line-soft);border-radius:18px;padding:40px 24px;display:flex;flex-direction:column;align-items:center;gap:14px;box-shadow:0 18px 50px rgba(0,0,0,.5)">
+      <svg width="42" height="42" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 20h20L12 2z" stroke="#ffce4d" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 9v5" stroke="#ffce4d" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="17" r="1.1" fill="#ffce4d"/></svg>
+      <p id="errorMsg" style="font-size:14px;color:var(--txt-dim);line-height:1.5;max-width:32ch">Commande introuvable.</p>
+      <button class="btn-ghost" id="btnRetryLoad" style="width:100%;border-radius:12px;cursor:pointer;font-family:'Rajdhani';font-weight:700;font-size:16px;letter-spacing:.04em;padding:15px;background:transparent;color:var(--ice);border:1px solid var(--line)">Réessayer</button>
+    </section>
+
+    <!-- ======================= CARTE PRINCIPALE ======================= -->
+    <section class="ticket hidden" id="cardOrder">
+
+      <!-- Logo -->
+      <header class="brand">
+        <div class="brand__crest">
+          <svg width="74" height="74" viewBox="0 0 100 100">
+            <defs>
+              <linearGradient id="shieldGold" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#fff6d8"/>
+                <stop offset="35%" stop-color="#f7e7a8"/>
+                <stop offset="70%" stop-color="#d9af45"/>
+                <stop offset="100%" stop-color="#9a7b22"/>
+              </linearGradient>
+              <linearGradient id="diamondBlue" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#dff1ff"/>
+                <stop offset="50%" stop-color="#6fc3ff"/>
+                <stop offset="100%" stop-color="#1c6fe0"/>
+              </linearGradient>
+              <filter id="crestGlow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="2.2" result="b"/>
+                <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+            <!-- wings -->
+            <g filter="url(#crestGlow)">
+              <path d="M50 30 C40 22 24 18 10 22 C16 30 18 40 28 44 C36 47 44 44 50 38 Z" fill="url(#shieldGold)" opacity="0.92"/>
+              <path d="M50 30 C60 22 76 18 90 22 C84 30 82 40 72 44 C64 47 56 44 50 38 Z" fill="url(#shieldGold)" opacity="0.92"/>
+            </g>
+            <!-- shield -->
+            <g filter="url(#crestGlow)">
+              <path d="M50 18 L78 28 V52 C78 70 65 82 50 88 C35 82 22 70 22 52 V28 Z" fill="none" stroke="url(#shieldGold)" stroke-width="3"/>
+              <path d="M50 24 L72 32 V52 C72 66 61 76 50 81 C39 76 28 66 28 52 V32 Z" fill="#0a2a63" opacity="0.55"/>
+            </g>
+            <!-- diamond -->
+            <g filter="url(#crestGlow)">
+              <polygon points="50,38 60,48 50,72 40,48" fill="url(#diamondBlue)"/>
+              <polygon points="40,48 60,48 50,38" fill="#eaf7ff" opacity="0.85"/>
+              <polygon points="42,49 58,49 50,68" fill="#1c6fe0" opacity="0.5"/>
+            </g>
+            <!-- crown -->
+            <g filter="url(#crestGlow)">
+              <path d="M40 20 L44 10 L50 17 L56 10 L60 20 Z" fill="url(#shieldGold)"/>
+              <circle cx="44" cy="9" r="2" fill="#fff6d8"/>
+              <circle cx="50" cy="6" r="2.3" fill="#fff6d8"/>
+              <circle cx="56" cy="9" r="2" fill="#fff6d8"/>
+            </g>
+            <!-- sparkles -->
+            <g fill="#fff6d8">
+              <g>
+                <path d="M14 14 L16 8 L18 14 L24 16 L18 18 L16 24 L14 18 L8 16 Z" opacity="0.9">
+                  <animate attributeName="opacity" values="0.3;1;0.3" dur="1.6s" repeatCount="indefinite"/>
+                </path>
+              </g>
+              <g>
+                <path d="M84 16 L86 11 L88 16 L93 18 L88 20 L86 25 L84 20 L79 18 Z" opacity="0.7">
+                  <animate attributeName="opacity" values="1;0.3;1" dur="1.9s" repeatCount="indefinite"/>
+                </path>
+              </g>
+            </g>
+          </svg>
+        </div>
+        <h1 class="brand__name">ULTRA<span>PREMIUM</span></h1>
+        <p class="brand__sub">— TRANSFERT MOBILE MONEY —</p>
+      </header>
+
+      <!-- Bandeau -->
+      <div class="banner" id="banner">
+        <span id="flowWord">Dépôt</span> <b>SANS FRAIS DE TRANSFERT</b> sur <em id="platformName">MATULMADA</em>
+      </div>
+
+      <!-- Montant + picto flow -->
+      <div class="hero">
+        <div class="hero__amount">
+          <strong><span id="amountValue">0</span> <span id="amountDevise">Ar</span></strong>
+          <span id="amountLabel">Montant à déposer</span>
+        </div>
+        <div class="hero__badge" id="flowBadge">
+          <svg class="hero__arrow icon" id="flowArrowSvg" viewBox="0 0 24 24" fill="none"><path d="M12 4v16M12 20l-6-6M12 20l6-6" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span id="flowBadgeText">DÉPÔT</span>
+        </div>
+      </div>
+
+      <!-- Expire / Session -->
+      <div class="grid2">
+        <div class="chip">
+          <svg class="chip__ic icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3.5 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><small>EXPIRE DANS</small><b id="expireValue">—</b></div>
+        </div>
+        <div class="chip">
+          <svg class="chip__ic icon" viewBox="0 0 24 24" fill="none"><path d="M20 12.5L12.5 20a1.5 1.5 0 0 1-2.12 0l-6.38-6.38a1.5 1.5 0 0 1 0-2.12L11.5 4H18a2 2 0 0 1 2 2v6.5z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="15" cy="9" r="1.4" fill="currentColor"/></svg>
+          <div><small>SESSION</small><b id="sessionValue">—</b></div>
+        </div>
+      </div>
+
+      <!-- Numéro autorisé -->
+      <div class="callrow">
+        <svg class="callrow__ic icon" viewBox="0 0 24 24" fill="none" style="width:22px;height:22px"><path d="M7 3.5c.6 0 1.1.4 1.3.9l1 2.5c.2.5 0 1-.3 1.4L7.7 9.8c1 2.2 2.7 3.9 4.9 4.9l1.5-1.3c.4-.3.9-.4 1.4-.3l2.5 1c.5.2.9.7.9 1.3v2.2c0 .9-.8 1.6-1.7 1.5-7-.7-12.4-6.1-13.1-13.1C3.9 5.2 4.6 4.4 5.5 4.4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div>
+          <small>NUMÉRO AUTORISÉ UNIQUEMENT</small>
+          <b id="authNumero">—</b>
+        </div>
+      </div>
+
+      <!-- Note frais -->
+      <p class="note">
+        <svg class="note__ic icon" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 5-3.2 8.2-7 10-3.8-1.8-7-5-7-10V6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span><b>0 FRAIS DE TRANSFERT</b>, ALEFA MANUEL NY VOLA, TSINDRIO NY <span class="note__link" data-copy="ussd">BOUTON CODE</span> EO AMBANY</span>
+      </p>
+
+      <!-- Code à utiliser -->
+      <div class="codebox">
+        <span class="codebox__label">CODE À UTILISER</span>
+        <code class="codebox__code" id="ussdCode">—</code>
+        <button class="copybtn" id="btnUssd" type="button">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L19 13l2 5v3a1 1 0 0 1-1 1A16 16 0 0 1 4 6a1 1 0 0 1 1-2z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          COMPOSER LE CODE
+        </button>
+      </div>
+
+      <!-- Opérateur -->
+      <div class="op-pill"><span class="op-pill__dot"></span><span id="opName">TELMA / MVOLA</span></div>
+
+      <!-- Étapes -->
+      <ol class="steps">
+        <li><span class="steps__n">1</span><p>Ouvrez votre application Mobile Money ou composez le code depuis votre téléphone</p></li>
+        <li><span class="steps__n">2</span><p>Choisissez <b>Transfert</b> ou <b>Envoi d'argent</b></p></li>
+        <li>
+          <span class="steps__n">3</span>
+          <div>
+            <p>Entrez ce montant exact :</p>
+            <div class="box box--ok">
+              <svg class="box__ic icon" viewBox="0 0 24 24" fill="none"><rect x="2" y="6" width="20" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M6 9v.01M18 15v.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              <div><small>MONTANT À ENVOYER</small><b id="montantSend">0 Ar</b></div>
+              <svg class="box__check" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#2bd07a" opacity="0.15"/><path d="M7 12.5l3 3 7-7" stroke="#2bd07a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+        </li>
+        <li>
+          <span class="steps__n">4</span>
+          <div>
+            <p>Envoyez au numéro suivant :</p>
+            <div class="box">
+              <div><small>NUMÉRO DESTINATAIRE</small><b id="destNumero">—</b></div>
+              <button class="copy" data-copy="numero" type="button">
+                <svg viewBox="0 0 24 24" fill="none"><rect x="8" y="8" width="12" height="13" rx="2" stroke="#fff" stroke-width="1.7"/><path d="M16 8V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h2" stroke="#fff" stroke-width="1.7"/></svg>
+                COPIER LE NUMÉRO
+              </button>
+            </div>
+          </div>
+        </li>
+      </ol>
+
+      <!-- Avertissement -->
+      <p class="warn">
+        <svg class="warn__ic icon" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 20h20L12 2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 9v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="17" r="1.1" fill="currentColor"/></svg>
+        <span>Envoyez exactement ce montant. Tout écart entraînera un rejet automatique de la transaction.</span>
+      </p>
+
+      <!-- Statut -->
+      <div class="status" id="statusBar">
+        <svg class="status__ic icon" id="statusIcSvg" viewBox="0 0 24 24" fill="none">
+          <path d="M6 2h12M6 22h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M7 2c0 5 5 6 5 8s-5 3-5 8M17 2c0 5-5 6-5 8s5 3 5 8" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        </svg>
+        <span id="statusText">EN ATTENTE DE PAIEMENT</span>
+      </div>
+
+      <!-- Retour -->
+      <button class="back-btn" id="btnBack" type="button">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M19 12H5M5 12l6-6M5 12l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        RETOUR VERS L'ESPACE CLIENT
+      </button>
+
+      <!-- Incident -->
+      <p class="incident">
+        <svg class="incident__ic icon" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 20h20L12 2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 9v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="17" r="1.1" fill="currentColor"/></svg>
+        <span>En cas d'incident, contactez <b id="contactName">Matul</b>
+        (<span id="contactPhone">—</span>) en mentionnant votre numéro de session : <b id="sessionValue2">—</b></span>
+      </p>
+
+      <!-- Footer -->
+      <footer class="foot">
+        <div class="foot__l">
+          <svg viewBox="0 0 40 40"><polygon points="20,4 33,11 33,29 20,36 7,29 7,11" fill="none" stroke="#f7e7a8" stroke-width="2"/><polygon points="20,12 24,20 20,28 16,20" fill="#6fc3ff"/></svg>
+          <div><b id="footBrand">SLife Gateway</b><br><small>Mobile Money Madagascar</small></div>
+        </div>
+        <div class="foot__mid" id="footTagline">SLife GATEWAY - Moyen de paiement &amp; transfert automatisé</div>
+        <div class="foot__r">© 2025, Developed with <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.4-9.5-8.8C1 9 2.5 5.5 6 5c2-.3 3.6.8 6 3.3C14.4 5.8 16 4.7 18 5c3.5.5 5 4 3.5 7.2C19 16.6 12 21 12 21z"/></svg> by <span id="footCredit">TOKINIAINA T.R</span></div>
+      </footer>
+    </section>
+
+    <!-- ÉTAT : succès -->
+    <section class="state hidden" id="stateDone" style="max-width:460px;margin:30px auto 0;text-align:center;background:linear-gradient(180deg,rgba(7,28,68,.9),rgba(4,18,46,.95));border:1px solid var(--line-soft);border-radius:18px;padding:40px 24px;display:flex;flex-direction:column;align-items:center;gap:14px;box-shadow:0 18px 50px rgba(0,0,0,.5)">
+      <div style="width:66px;height:66px;border-radius:50%;background:var(--ok);display:grid;place-items:center;box-shadow:0 0 26px rgba(43,208,122,.6);animation:pop .35s cubic-bezier(.2,.9,.3,1.4)">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l5 5L19 7" stroke="#04122e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h2 style="font-family:'Cinzel',serif;font-size:22px;color:var(--gold-1)">Paiement confirmé !</h2>
+      <p id="doneText" style="font-size:14px;color:var(--txt-dim);line-height:1.5;max-width:32ch">Votre dépôt a été reçu.</p>
+      <span class="ref" id="doneRef" style="font-size:12px;letter-spacing:.08em;color:var(--ice);background:rgba(10,42,99,.6);padding:5px 12px;border-radius:6px;border:1px solid var(--line-soft)">REF —</span>
+      <button class="btn-gold" id="btnClose" style="width:100%;border-radius:12px;cursor:pointer;font-family:'Rajdhani';font-weight:700;font-size:16px;letter-spacing:.04em;padding:15px;border:0;color:#04122e;background:linear-gradient(180deg,var(--gold-1),var(--gold-2));box-shadow:0 0 22px rgba(216,175,69,.5)">Fermer</button>
+    </section>
+
+    <!-- ÉTAT : échec -->
+    <section class="state hidden" id="stateFailed" style="max-width:460px;margin:30px auto 0;text-align:center;background:linear-gradient(180deg,rgba(7,28,68,.9),rgba(4,18,46,.95));border:1px solid var(--line-soft);border-radius:18px;padding:40px 24px;display:flex;flex-direction:column;align-items:center;gap:14px;box-shadow:0 18px 50px rgba(0,0,0,.5)">
+      <svg width="52" height="52" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#ff5a6a" stroke-width="1.6"/><path d="M9 9l6 6M15 9l-6 6" stroke="#ff5a6a" stroke-width="2" stroke-linecap="round"/></svg>
+      <h2 style="font-family:'Cinzel',serif;font-size:22px;color:var(--gold-1)">Échec</h2>
+      <p id="failedText" style="font-size:14px;color:var(--txt-dim);line-height:1.5;max-width:32ch">Le paiement a échoué ou le délai est dépassé.</p>
+      <button class="btn-ghost" id="btnRestart" style="width:100%;border-radius:12px;cursor:pointer;font-family:'Rajdhani';font-weight:700;font-size:16px;letter-spacing:.04em;padding:15px;background:transparent;color:var(--ice);border:1px solid var(--line)">Réessayer</button>
+    </section>
+
+  </main>
+
+  <div class="toast hidden" id="toast"></div>
+
+<script>
+/* =========================================================================
+ *  ULTRA PREMIUM — demo logic (mock mode, single-file)
+ * ========================================================================= */
+(function () {
+  "use strict";
+  const CFG = {
+    // === BACKEND (ampifanaraho amin'ny Render-nao) ======================
+    USE_MOCK: true,                 // false = mampiasa ny backend tena izy
+    API_BASE: "https://sms-gateway-admin-backend.onrender.com",
+    ROUTES: {
+      getOrder:  (id) => "/api/retrait/" + id,             // ⭐ route VAOVAO (jereo backend-additions)
+      setStatus: (id) => "/api/retrait/" + id + "/status", // PATCH { status }
+    },
+    token: null, orderId: null,
+    // ====================================================================
+    POLL_INTERVAL_MS: 4000,
+    POLL_TIMEOUT_MS: 5 * 60 * 1000,
+    STATUS: { SUCCESS: ["success"], FAILED: ["failed"] },
+    DEVISE: "Ar",
+    BRAND: {
+      platform: "MATULMADA",
+      authNumero: "0380990983",
+      contactName: "Matul",
+      contactPhone: "0380990983",
+      footBrand: "SLife Gateway",
+      footCredit: "TOKINIAINA T.R",
+    },
+    EXPIRE_MINUTES: 15,
+  };
+  const $ = (id) => document.getElementById(id);
+  const params = new URLSearchParams(location.search);
+
+  function safe(fn){ try { return fn(); } catch(_) { return null; } }
+  const NB = window.AndroidBridge || null;  // native bridge (APK)
+  CFG.orderId = params.get("order") || (NB && safe(() => NB.getOrderId()))  || null;
+  CFG.token   = params.get("token") || (NB && safe(() => NB.getAuthToken())) || null;
+
+  function authHeaders(){ return CFG.token ? { Authorization: "Bearer " + CFG.token } : {}; }
+  const API = {
+    async getOrder(id){
+      const r = await fetch(CFG.API_BASE + CFG.ROUTES.getOrder(id), { headers: authHeaders() });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      const j = await r.json();
+      return normalize(j.retrait || j.data || j);
+    },
+    async getStatus(id){
+      const r = await fetch(CFG.API_BASE + CFG.ROUTES.getOrder(id), { headers: authHeaders() });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      const j = await r.json(); const d = j.retrait || j.data || j;
+      return d.status || "pending";
+    },
+    async markProcessing(id){
+      if (!CFG.token) return;
+      await fetch(CFG.API_BASE + CFG.ROUTES.setStatus(id), {
+        method: "PATCH",
+        headers: { ...authHeaders(), "Content-Type": "application/json" },
+        body: JSON.stringify({ status: "processing" }),
+      }).catch(() => {});
+    },
+  };
+
+  // Manokatra ny dialer USSD amin'ny finon'ny CLIENT → ny client no mampiditra ny PIN-ny
+  function dialUssd(code){
+    if (!code) return false;
+    // 1) raha ao anaty APK misy bridge (ACTION_CALL → mandeha mivantana)
+    if (NB && typeof NB.dialUssd === "function") { safe(() => NB.dialUssd(code)); return true; }
+    // 2) fallback navigateur/WebView: tel: encodé (# → %23)
+    window.location.href = "tel:" + encodeURIComponent(code);
+    return true;
+  }
+
+  let order = null, pollTimer = null, pollStarted = 0, expTimer = null;
+
+  function opKey(op){const o=(op||"").toLowerCase();if(o.includes("orange"))return "orange";if(o.includes("airtel"))return "airtel";return "mvola";}
+  function shortRef(id){return id?String(id).slice(-6).toUpperCase():"—";}
+  function sessionFrom(id){
+    let h=0,s=String(id||Math.random());for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;
+    return String(h%100000000).padStart(8,"0");
+  }
+
+  function mockOrder(id){
+    const isDepot = params.get("type") !== "retrait";
+    const op = params.get("op") || "mvola";
+    const u = {
+      mvola:"#111*1*2*0344879713*21250*2#",
+      orange:"#111*1*2*0344879713*21250*2#",
+      airtel:"*436*1*2*0344879713*21250*2#"
+    }[op];
+    const o = {
+      _id: id || "65f0a1demo000000000000ab",
+      type: isDepot ? "depot" : "retrait",
+      operator: op, numero: "0344879713", montant: 21250, devise: CFG.DEVISE,
+      ussdCode: u, status: "pending", createdAt: new Date().toISOString(),
+    };
+    return new Promise(r => setTimeout(() => r(normalize(o)), 450));
+  }
+  let _t = 0;
+  function mockStatus(){ _t++; return Promise.resolve(_t >= 3 ? "success" : "pending"); }
+
+  function normalize(o){
+    const id = o._id || o.id;
+    return {
+      id, type: o.type === "depot" ? "depot" : "retrait",
+      operator: opKey(o.operator), numero: o.numero, montant: o.montant,
+      devise: o.devise || CFG.DEVISE, ussdCode: o.ussdCode || "",
+      status: o.status || "pending",
+      reference: shortRef(id), session: sessionFrom(id),
+      createdAt: o.createdAt ? new Date(o.createdAt) : new Date(),
+      expiresAt: o.expiresAt ? new Date(o.expiresAt) : null,
+    };
+  }
+
+  const VIEWS = ["stateLoading","stateError","cardOrder","stateDone","stateFailed"];
+  function show(v){ VIEWS.forEach(x => $(x).classList.toggle("hidden", x !== v)); }
+
+  function renderOrder(o){
+    const ops = { mvola:"TELMA / MVOLA", orange:"ORANGE MONEY", airtel:"AIRTEL MONEY" };
+    document.body.dataset.operator = o.operator;
+    const isDepot = o.type === "depot";
+    const montantTxt = `${fmt(o.montant)} ${o.devise}`;
+    const B = CFG.BRAND;
+
+    $("flowWord").textContent = isDepot ? "Dépôt" : "Retrait";
+    $("platformName").textContent = B.platform;
+    $("amountValue").textContent = fmt(o.montant);
+    $("amountDevise").textContent = o.devise;
+    $("amountLabel").textContent = isDepot ? "Montant à déposer" : "Montant à retirer";
+    $("flowBadgeText").textContent = isDepot ? "DÉPÔT" : "RETRAIT";
+    $("flowArrowSvg").innerHTML = isDepot
+      ? '<path d="M12 4v16M12 20l-6-6M12 20l6-6" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>'
+      : '<path d="M12 20V4M12 4l-6 6M12 4l6 6" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>';
+
+    $("sessionValue").textContent = o.session;
+    $("sessionValue2").textContent = o.session;
+    $("authNumero").textContent = B.authNumero;
+
+    $("ussdCode").textContent = o.ussdCode || "—";
+    $("opName").textContent = ops[o.operator] || o.operator.toUpperCase();
+
+    $("montantSend").textContent = montantTxt;
+    $("destNumero").textContent = o.numero || "—";
+
+    $("contactName").textContent = B.contactName;
+    $("contactPhone").textContent = B.contactPhone;
+    $("footBrand").textContent = B.footBrand;
+    $("footCredit").textContent = B.footCredit;
+
+    startExpiry(o);
+    show("cardOrder");
+  }
+
+  function startExpiry(o){
+    clearInterval(expTimer);
+    const end = o.expiresAt || new Date(o.createdAt.getTime() + CFG.EXPIRE_MINUTES * 60000);
+    const tick = () => {
+      const ms = end - Date.now();
+      if (ms <= 0) { clearInterval(expTimer); $("expireValue").textContent = "Expiré"; return done("stateFailed", true); }
+      const m = Math.floor(ms/60000), s = Math.floor(ms%60000/1000);
+      $("expireValue").textContent = `${pad(m)}:${pad(s)}`;
+    };
+    tick(); expTimer = setInterval(tick, 1000);
+  }
+
+  async function onUssd(){
+    if (!order || !order.ussdCode) { toastShow("Aucun code USSD"); return; }
+    dialUssd(order.ussdCode);              // → misokatra ny USSD, ny client manoratra ny PIN-ny
+    if (!CFG.USE_MOCK) API.markProcessing(order.id);
+    setStatus("waiting");
+    startPolling();
+  }
+  function setStatus(state){
+    const bar = $("statusBar"), t = $("statusText"), svg = $("statusIcSvg");
+    bar.classList.remove("status--ok","status--fail");
+    if (state === "waiting"){
+      svg.innerHTML = '<path d="M6 2h12M6 22h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M7 2c0 5 5 6 5 8s-5 3-5 8M17 2c0 5-5 6-5 8s5 3 5 8" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>';
+      t.textContent = "EN ATTENTE DE PAIEMENT…";
+    }
+    if (state === "ok"){
+      svg.innerHTML = '<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.6"/><path d="M7 12.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>';
+      t.textContent = "PAIEMENT CONFIRMÉ"; bar.classList.add("status--ok");
+    }
+    if (state === "fail"){
+      svg.innerHTML = '<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.6"/><path d="M9 9l6 6M15 9l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>';
+      t.textContent = "PAIEMENT ÉCHOUÉ"; bar.classList.add("status--fail");
+    }
+  }
+  function startPolling(){ clearTimeout(pollTimer); pollStarted = Date.now(); poll(); }
+  async function poll(){
+    clearTimeout(pollTimer);
+    if (Date.now() - pollStarted > CFG.POLL_TIMEOUT_MS) return done("stateFailed");
+    try {
+      const s = CFG.USE_MOCK ? await mockStatus() : await API.getStatus(order.id);
+      if (CFG.STATUS.SUCCESS.includes(s)) { setStatus("ok"); return done("stateDone"); }
+      if (CFG.STATUS.FAILED.includes(s)) { setStatus("fail"); return done("stateFailed"); }
+    } catch(_) {}
+    pollTimer = setTimeout(poll, CFG.POLL_INTERVAL_MS);
+  }
+  function done(view, silent){
+    clearTimeout(pollTimer); clearInterval(expTimer);
+    const ok = view === "stateDone";
+    if (ok){
+      $("doneRef").textContent = `REF ${order.reference}`;
+      $("doneText").textContent = order.type === "depot" ? "Votre dépôt a été reçu." : "Votre retrait a été envoyé.";
+    }
+    show(view);
+  }
+
+  function closeOrBack(){ history.length > 1 ? history.back() : show("cardOrder"); }
+
+  async function loadOrder(){
+    show("stateLoading");
+    const id = CFG.orderId || params.get("order") || "65f0a1demo000000000000ab";
+    try { order = CFG.USE_MOCK ? await mockOrder(id) : await API.getOrder(id); renderOrder(order); }
+    catch(e){ fail("Commande introuvable. Vérifiez le backend (/api/retrait/:id) et le token."); }
+  }
+  function fail(msg){ $("errorMsg").textContent = msg; show("stateError"); }
+
+  function fmt(n){ return new Intl.NumberFormat("fr-FR").format(Number(n) || 0); }
+  function pad(n){ return String(n).padStart(2,"0"); }
+  function toastShow(m){
+    const t = $("toast");
+    t.innerHTML = '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.6"/><path d="M7 12.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>' + m + '</span>';
+    t.classList.remove("hidden");
+    clearTimeout(toastShow._t);
+    toastShow._t = setTimeout(() => t.classList.add("hidden"), 2200);
+  }
+  async function copy(text){
+    if (!text) return;
+    try { await navigator.clipboard.writeText(text); toastShow("Copié !"); }
+    catch { toastShow(text); }
+  }
+
+  $("btnUssd").addEventListener("click", onUssd);
+  $("btnBack").addEventListener("click", closeOrBack);
+  $("btnClose").addEventListener("click", closeOrBack);
+  $("btnRestart").addEventListener("click", loadOrder);
+  $("btnRetryLoad").addEventListener("click", loadOrder);
+  document.querySelectorAll(".copy").forEach(b => b.addEventListener("click", () => {
+    if (order && b.dataset.copy === "numero") copy(order.numero);
+  }));
+  const noteLink = document.querySelector(".note__link");
+  if (noteLink) noteLink.addEventListener("click", onUssd);
+
+  loadOrder();
+})();
+</script>
+</body>
+</html>

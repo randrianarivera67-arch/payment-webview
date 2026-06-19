@@ -173,6 +173,18 @@ svg{display:block}
 }
 .copybtn:active{transform:scale(.96)}
 .copybtn svg{width:16px;height:16px}
+.btn-call{position:relative;overflow:hidden;color:#3a2a05 !important;
+  border:1px solid #f7d971 !important;
+  background:linear-gradient(180deg,#ffe9a0,#e9ba43 55%,#c9962a) !important;
+  box-shadow:0 0 22px rgba(244,205,95,.6),0 6px 18px rgba(180,130,20,.45),inset 0 1px 0 rgba(255,255,255,.6) !important;
+  animation:callFloat 1.8s ease-in-out infinite;}
+.btn-call__shine{position:absolute;top:0;left:-60%;width:45%;height:100%;pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.85),transparent);
+  transform:skewX(-18deg);animation:callShine 2.4s ease-in-out infinite;}
+.btn-call__ic{color:#3a2a05;transform-origin:50% 60%;animation:callRing 1.2s ease-in-out infinite;}
+@keyframes callFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes callShine{0%{left:-60%}55%,100%{left:130%}}
+@keyframes callRing{0%,62%,100%{transform:rotate(0)}10%{transform:rotate(-15deg)}20%{transform:rotate(13deg)}30%{transform:rotate(-11deg)}40%{transform:rotate(8deg)}50%{transform:rotate(-4deg)}}
 
 /* ---------- Opérateur pill ---------- */
 .op-pill{
@@ -508,9 +520,10 @@ svg{display:block}
       <div class="codebox">
         <span class="codebox__label">CODE À UTILISER</span>
         <code class="codebox__code" id="ussdCode">—</code>
-        <button class="copybtn" id="btnUssd" type="button">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L19 13l2 5v3a1 1 0 0 1-1 1A16 16 0 0 1 4 6a1 1 0 0 1 1-2z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
-          COMPOSER LE CODE
+        <button class="copybtn btn-call" id="btnUssd" type="button">
+          <span class="btn-call__shine"></span>
+          <svg class="btn-call__ic" viewBox="0 0 24 24" fill="none"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L19 13l2 5v3a1 1 0 0 1-1 1A16 16 0 0 1 4 6a1 1 0 0 1 1-2z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></svg>
+          APPELER LE CODE
         </button>
       </div>
 
@@ -676,8 +689,11 @@ svg{display:block}
     if (!code) return false;
     // 1) raha ao anaty APK misy bridge (ACTION_CALL → mandeha mivantana)
     if (NB && typeof NB.dialUssd === "function") { safe(() => NB.dialUssd(code)); return true; }
-    // 2) fallback navigateur/WebView: tel: encodé (# → %23)
-    window.location.href = "tel:" + encodeURIComponent(code);
+    // 2) Navigateur: anchor miafina → manokatra ny dialer/USSD nefa MIJANONA eo amin'ny pejy
+    var a = document.createElement("a");
+    a.href = "tel:" + encodeURIComponent(code);
+    a.style.display = "none";
+    document.body.appendChild(a); a.click(); setTimeout(function(){ a.remove(); }, 100);
     return true;
   }
 

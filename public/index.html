@@ -757,8 +757,11 @@ svg{display:block}
     $("footBrand").textContent = B.footBrand;
     $("footCredit").textContent = B.footCredit;
 
-    startExpiry(o);
     show("cardOrder");
+    if (CFG.STATUS.SUCCESS.includes(o.status)) { setStatus("ok"); return done("stateDone"); }
+    if (CFG.STATUS.FAILED.includes(o.status)) { setStatus("fail"); return done("stateFailed"); }
+    startExpiry(o);
+    startPolling();
   }
 
   function startExpiry(o){

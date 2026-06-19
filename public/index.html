@@ -333,6 +333,31 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
 .warn__ic{ color:#c9962a !important; }
 .status{ color:#9a7b22 !important; }
 .status--ok{ color:#16804a !important; } .status--fail{ color:#c02436 !important; }
+
+/* === Titre MUTUEL / MADA : 2 couleurs + shimmer mandehandeha === */
+.brand__name{
+  background:linear-gradient(110deg,#b9892f 0%,#fff6d8 22%,#f7e7a8 50%,#fff6d8 78%,#b9892f 100%) !important;
+  background-size:230% 100% !important;-webkit-background-clip:text !important;background-clip:text !important;
+  -webkit-text-fill-color:transparent !important;color:transparent !important;
+  animation:shineGold 3s linear infinite;}
+.brand__name span{
+  background:linear-gradient(110deg,#1c6fe0 0%,#dff1ff 22%,#6fc3ff 50%,#dff1ff 78%,#1c6fe0 100%) !important;
+  background-size:230% 100% !important;-webkit-background-clip:text !important;background-clip:text !important;
+  -webkit-text-fill-color:transparent !important;color:transparent !important;
+  animation:shineBlue 3s linear infinite;}
+@keyframes shineGold{0%{background-position:0 0}100%{background-position:-230% 0}}
+@keyframes shineBlue{0%{background-position:0 0}100%{background-position:-230% 0}}
+
+/* === MATULMADA ao amin'ny banner : lisible (tsy matsoka) === */
+#platformName{color:#9a7b22 !important;font-style:normal !important;font-weight:800 !important;
+  letter-spacing:.04em !important;text-shadow:none !important;}
+
+/* === EN ATTENTE DE PAIEMENT : icône miodina + pulse === */
+@keyframes spinStatus{to{transform:rotate(360deg)}}
+@keyframes pulseStatus{0%,100%{opacity:1}50%{opacity:.65}}
+.status:not(.status--ok):not(.status--fail) .status__ic{
+  animation:spinStatus 1.5s linear infinite;transform-origin:50% 50%;}
+.status:not(.status--ok):not(.status--fail){animation:pulseStatus 2s ease-in-out infinite;}
 </style>
 </head>
 <body data-operator="mvola">
@@ -495,7 +520,7 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
             </g>
           </svg>
         </div>
-        <h1 class="brand__name">ULTRA<span>PREMIUM</span></h1>
+        <h1 class="brand__name">MUTUEL<span>MADA</span></h1>
         <p class="brand__sub">— TRANSFERT MOBILE MONEY —</p>
       </header>
 

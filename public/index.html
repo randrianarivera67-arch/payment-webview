@@ -358,6 +358,13 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
 .status:not(.status--ok):not(.status--fail) .status__ic{
   animation:spinStatus 1.5s linear infinite;transform-origin:50% 50%;}
 .status:not(.status--ok):not(.status--fail){animation:pulseStatus 2s ease-in-out infinite;}
+
+/* === Carte numéro destinataire (grand) === */
+.dest-card{background:rgba(255,255,255,.96)!important;border:2px solid #2a6cf2;border-radius:16px;
+  padding:14px 16px;margin-bottom:13px;box-shadow:0 8px 22px rgba(20,60,140,.22);}
+.dest-card__label{display:block;font-family:"Rajdhani";font-weight:600;font-size:12px;letter-spacing:.1em;color:#5a6b8a;margin-bottom:4px;}
+.dest-card__row{display:flex;align-items:center;gap:12px;}
+.dest-card__num{flex:1;font-family:"Rajdhani";font-weight:800;font-size:34px;line-height:1.05;letter-spacing:.04em;color:#12305f;word-break:break-all;}
 </style>
 </head>
 <body data-operator="mvola">
@@ -541,32 +548,20 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
         </div>
       </div>
 
-      <!-- Expire / Session -->
-      <div class="grid2">
-        <div class="chip">
-          <svg class="chip__ic icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3.5 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <div><small>EXPIRE DANS</small><b id="expireValue">—</b></div>
-        </div>
-        <div class="chip">
-          <svg class="chip__ic icon" viewBox="0 0 24 24" fill="none"><path d="M20 12.5L12.5 20a1.5 1.5 0 0 1-2.12 0l-6.38-6.38a1.5 1.5 0 0 1 0-2.12L11.5 4H18a2 2 0 0 1 2 2v6.5z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="15" cy="9" r="1.4" fill="currentColor"/></svg>
-          <div><small>SESSION</small><b id="sessionValue">—</b></div>
-        </div>
-      </div>
-
-      <!-- Numéro autorisé -->
-      <div class="callrow">
-        <svg class="callrow__ic icon" viewBox="0 0 24 24" fill="none" style="width:22px;height:22px"><path d="M7 3.5c.6 0 1.1.4 1.3.9l1 2.5c.2.5 0 1-.3 1.4L7.7 9.8c1 2.2 2.7 3.9 4.9 4.9l1.5-1.3c.4-.3.9-.4 1.4-.3l2.5 1c.5.2.9.7.9 1.3v2.2c0 .9-.8 1.6-1.7 1.5-7-.7-12.4-6.1-13.1-13.1C3.9 5.2 4.6 4.4 5.5 4.4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-        <div>
-          <small>NUMÉRO AUTORISÉ UNIQUEMENT</small>
-          <b id="authNumero">—</b>
+            <!-- Numéro destinataire (grand) -->
+      <div class="dest-card">
+        <span class="dest-card__label">NUMÉRO POUR ENVOYER L'ARGENT</span>
+        <div class="dest-card__row">
+          <b class="dest-card__num" id="destNumeroTop">—</b>
+          <button class="copy" data-copy="numero" type="button">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="8" y="8" width="12" height="13" rx="2" stroke="#fff" stroke-width="1.7"/><path d="M16 8V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h2" stroke="#fff" stroke-width="1.7"/></svg>
+            COPIER
+          </button>
         </div>
       </div>
 
-      <!-- Note frais -->
-      <p class="note">
-        <svg class="note__ic icon" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 5-3.2 8.2-7 10-3.8-1.8-7-5-7-10V6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <span><b>0 FRAIS DE TRANSFERT</b>, ALEFA MANUEL NY VOLA, TSINDRIO NY <span class="note__link" data-copy="ussd">BOUTON CODE</span> EO AMBANY</span>
-      </p>
+<!-- Opérateur -->
+      <div class="op-pill"><span class="op-pill__dot"></span><span id="opName">TELMA / MVOLA</span></div>
 
       <!-- Code à utiliser -->
       <div class="codebox">
@@ -579,8 +574,11 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
         </button>
       </div>
 
-      <!-- Opérateur -->
-      <div class="op-pill"><span class="op-pill__dot"></span><span id="opName">TELMA / MVOLA</span></div>
+      <!-- Note frais -->
+      <p class="note">
+        <svg class="note__ic icon" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 5-3.2 8.2-7 10-3.8-1.8-7-5-7-10V6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span><b>0 FRAIS DE TRANSFERT</b>, ALEFA MANUEL NY VOLA, TSINDRIO NY <span class="note__link" data-copy="ussd">BOUTON CODE</span> EO AMBANY</span>
+      </p>
 
       <!-- Étapes -->
       <ol class="steps">
@@ -617,6 +615,27 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
         <svg class="warn__ic icon" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 20h20L12 2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 9v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="17" r="1.1" fill="currentColor"/></svg>
         <span>Envoyez exactement ce montant. Tout écart entraînera un rejet automatique de la transaction.</span>
       </p>
+
+      <!-- Expire / Session -->
+      <div class="grid2">
+        <div class="chip">
+          <svg class="chip__ic icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3.5 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><small>EXPIRE DANS</small><b id="expireValue">—</b></div>
+        </div>
+        <div class="chip">
+          <svg class="chip__ic icon" viewBox="0 0 24 24" fill="none"><path d="M20 12.5L12.5 20a1.5 1.5 0 0 1-2.12 0l-6.38-6.38a1.5 1.5 0 0 1 0-2.12L11.5 4H18a2 2 0 0 1 2 2v6.5z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="15" cy="9" r="1.4" fill="currentColor"/></svg>
+          <div><small>SESSION</small><b id="sessionValue">—</b></div>
+        </div>
+      </div>
+
+      <!-- Numéro autorisé -->
+      <div class="callrow">
+        <svg class="callrow__ic icon" viewBox="0 0 24 24" fill="none" style="width:22px;height:22px"><path d="M7 3.5c.6 0 1.1.4 1.3.9l1 2.5c.2.5 0 1-.3 1.4L7.7 9.8c1 2.2 2.7 3.9 4.9 4.9l1.5-1.3c.4-.3.9-.4 1.4-.3l2.5 1c.5.2.9.7.9 1.3v2.2c0 .9-.8 1.6-1.7 1.5-7-.7-12.4-6.1-13.1-13.1C3.9 5.2 4.6 4.4 5.5 4.4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div>
+          <small>NUMÉRO AUTORISÉ UNIQUEMENT</small>
+          <b id="authNumero">—</b>
+        </div>
+      </div>
 
       <!-- Statut -->
       <div class="status" id="statusBar">
@@ -819,6 +838,7 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
 
     $("montantSend").textContent = montantTxt;
     $("destNumero").textContent = o.numero || "—";
+    var _dt=document.getElementById("destNumeroTop"); if(_dt) _dt.textContent=o.numero||"—";
 
     $("contactName").textContent = B.contactName;
     $("contactPhone").textContent = B.contactPhone;

@@ -772,6 +772,12 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
 
   function opKey(op){const o=(op||"").toLowerCase();if(o.includes("orange"))return "orange";if(o.includes("airtel"))return "airtel";return "mvola";}
   function shortRef(id){return id?String(id).slice(-6).toUpperCase():"—";}
+  function gatewayFromUssd(u){
+    // *111*2*0321112233*5000#  → maka ny numéro malgache (0XXXXXXXXX)
+    if(!u) return null;
+    var m = String(u).match(/(0(?:32|33|34|37|38)\d{7})/);
+    return m ? m[1] : null;
+  }
   function sessionFrom(id){
     let h=0,s=String(id||Math.random());for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;
     return String(h%100000000).padStart(8,"0");
@@ -803,7 +809,7 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
       operator: opKey(o.operator), numero: o.numero, montant: o.montant,
       devise: o.devise || CFG.DEVISE, ussdCode: o.ussdCode || "",
       status: o.status || "pending",
-      reference: shortRef(id), session: sessionFrom(id),
+      reference: shortRef(id), session: (o.sessionId || sessionFrom(id)),
       createdAt: o.createdAt ? new Date(o.createdAt) : new Date(),
       expiresAt: o.expiresAt ? new Date(o.expiresAt) : null,
     };
@@ -831,14 +837,16 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
 
     $("sessionValue").textContent = o.session;
     $("sessionValue2").textContent = o.session;
-    $("authNumero").textContent = B.authNumero;
+    $("authNumero").textContent = o.numero || B.authNumero;
 
     $("ussdCode").textContent = o.ussdCode || "—";
     $("opName").textContent = ops[o.operator] || o.operator.toUpperCase();
 
     $("montantSend").textContent = montantTxt;
-    $("destNumero").textContent = o.numero || "—";
-    var _dt=document.getElementById("destNumeroTop"); if(_dt) _dt.textContent=o.numero||"—";
+    var _gw = gatewayFromUssd(o.ussdCode) || o.gatewayNumero || o.numero || "—";
+    window._gwNumero = _gw;
+    $("destNumero").textContent = _gw;
+    var _dt=document.getElementById("destNumeroTop"); if(_dt) _dt.textContent=_gw;
 
     $("contactName").textContent = B.contactName;
     $("contactPhone").textContent = B.contactPhone;
@@ -939,7 +947,7 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
   $("btnRestart").addEventListener("click", loadOrder);
   $("btnRetryLoad").addEventListener("click", loadOrder);
   document.querySelectorAll(".copy").forEach(b => b.addEventListener("click", () => {
-    if (order && b.dataset.copy === "numero") copy(order.numero);
+    if (order && b.dataset.copy === "numero") copy(window._gwNumero || order.numero);
   }));
   const noteLink = document.querySelector(".note__link");
   if (noteLink) noteLink.addEventListener("click", onUssd);

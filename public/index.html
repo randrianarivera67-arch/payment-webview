@@ -704,8 +704,8 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
     USE_MOCK: false,                 // false = mampiasa ny backend tena izy
     API_BASE: "https://sms-gateway-admin-backend-vw8p.onrender.com",
     ROUTES: {
-      getOrder:  (id) => "/api/retrait/" + id,             // ⭐ route VAOVAO (jereo backend-additions)
-      setStatus: (id) => "/api/retrait/" + id + "/status", // PATCH { status }
+      getOrder:  (id) => "/api/retrait/public/" + id,             // ⭐ route VAOVAO (jereo backend-additions)
+      setStatus: (id) => "/api/retrait/public/" + id + "/processing", // PATCH { status }
     },
     token: null, orderId: null,
     // ====================================================================
@@ -746,11 +746,10 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
       return d.status || "pending";
     },
     async markProcessing(id){
-      if (!CFG.token) return;
       await fetch(CFG.API_BASE + CFG.ROUTES.setStatus(id), {
-        method: "PATCH",
-        headers: { ...authHeaders(), "Content-Type": "application/json" },
-        body: JSON.stringify({ status: "processing" }),
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({}),
       }).catch(() => {});
     },
   };

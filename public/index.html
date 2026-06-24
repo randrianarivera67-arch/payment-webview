@@ -842,10 +842,23 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
     $("opName").textContent = ops[o.operator] || o.operator.toUpperCase();
 
     $("montantSend").textContent = montantTxt;
-    var _gw = gatewayFromUssd(o.ussdCode) || o.gatewayNumero || o.numero || "—";
+    var _gw = (o.type === "depot") ? (o.gatewayNumero || gatewayFromUssd(o.ussdCode) || "—") : (o.numero || "—");
     window._gwNumero = _gw;
     $("destNumero").textContent = _gw;
     var _dt=document.getElementById("destNumeroTop"); if(_dt) _dt.textContent=_gw;
+    // W4: Orange + TPE (code marchand) -> afeno destinataire ; numero autorise tsy kitihina
+    var _hideDest = (o.operator === "orange" && o.channel === "TPE");
+    // W3: airtel = COPIER ; hafa = APPEL
+    var _isAirtel = (o.operator === "airtel");
+    var _btn = document.getElementById("btnUssd");
+    if(_btn){ var _ic=_btn.querySelector(".btn-call__ic"); _btn.innerHTML='<span class="btn-call__shine"></span>'+(_ic?_ic.outerHTML:'')+(_isAirtel?"COPIER LE CODE":"APPELER LE CODE"); }
+    var _note=document.querySelector(".note span");
+    if(_note) _note.innerHTML='<b>0 FRAIS DE TRANSFERT</b>, ALEFA MANUEL NY VOLA, TSINDRIO NY <span class="note__link" data-copy="ussd">BOUTON '+(_isAirtel?'COPIE':'APPEL')+'</span> EO AMBONY';
+    var _nl=document.querySelector(".note__link"); if(_nl) _nl.addEventListener("click", onUssd);
+    var _destCard = document.querySelector(".dest-card");
+    if(_destCard) _destCard.style.display = _hideDest ? "none" : "";
+    var _step4 = document.querySelector(".steps li:nth-child(4)");
+    if(_step4) _step4.style.display = _hideDest ? "none" : "";
 
     $("contactName").textContent = B.contactName;
     $("contactPhone").textContent = B.contactPhone;
@@ -873,7 +886,8 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
 
   async function onUssd(){
     if (!order || !order.ussdCode) { toastShow("Aucun code USSD"); return; }
-    dialUssd(order.ussdCode);              // → misokatra ny USSD, ny client manoratra ny PIN-ny
+    if (order.operator === "airtel") { copy(order.ussdCode); }
+    else { dialUssd(order.ussdCode); }     // airtel=copy ; hafa=appel
     if (!CFG.USE_MOCK) API.markProcessing(order.id);
     setStatus("waiting");
     startPolling();

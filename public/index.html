@@ -105,15 +105,16 @@ svg{display:block}
 /* ---------- Hero (montant) ---------- */
 .hero{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:stretch;margin-bottom:12px}
 .hero__amount{
-  border:1px solid var(--line-soft);border-radius:14px;padding:14px 16px;
+  border:1px solid var(--line-soft);border-radius:14px;padding:14px 16px;min-width:0;overflow:hidden;
   background:linear-gradient(180deg,rgba(10,42,99,.55),rgba(4,18,46,.4));
   display:flex;flex-direction:column;justify-content:center;
 }
 .hero__amount strong{
-  font-family:"Rajdhani";font-weight:700;font-size:42px;line-height:1;color:#fff;
+  font-family:"Rajdhani";font-weight:700;font-size:clamp(26px,8.5vw,42px);line-height:1;color:#fff;
   font-variant-numeric:tabular-nums;text-shadow:0 0 18px rgba(120,180,255,.45);
+  white-space:nowrap;
 }
-.hero__amount span#amountDevise{font-size:25px}
+.hero__amount span#amountDevise{font-size:clamp(15px,5vw,25px)}
 .hero__amount>span:last-child{font-size:13px;color:var(--txt-dim);margin-top:5px}
 .hero__badge{
   min-width:138px;border-radius:14px;
@@ -154,15 +155,17 @@ svg{display:block}
 .codebox{
   border:1px solid var(--line-soft);border-radius:14px;padding:13px 14px;margin-bottom:14px;
   background:linear-gradient(180deg,rgba(10,42,99,.4),rgba(4,18,46,.3));
-  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  display:flex;flex-direction:column;align-items:stretch;gap:10px;
 }
 .codebox__label{font-family:"Rajdhani";font-size:11px;letter-spacing:.1em;color:var(--txt-dim);width:100%}
 .codebox__code{
-  flex:1;min-width:0;
+  width:100%;display:block;
   font-family:"Rajdhani","Courier New",monospace;font-weight:700;
-  font-size:23px;letter-spacing:.01em;color:#fff;word-break:break-all;
+  font-size:clamp(16px,5vw,23px);letter-spacing:.02em;color:#fff;
+  word-break:break-all;overflow-wrap:anywhere;text-align:center;line-height:1.3;
   text-shadow:0 0 14px rgba(120,180,255,.55);
 }
+.codebox .btn-call{width:100%}
 .copybtn{
   flex:none;display:flex;align-items:center;gap:8px;
   border:1px solid var(--line);border-radius:10px;cursor:pointer;
@@ -363,8 +366,21 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
 .dest-card{background:rgba(255,255,255,.96)!important;border:2px solid #2a6cf2;border-radius:16px;
   padding:14px 16px;margin-bottom:13px;box-shadow:0 8px 22px rgba(20,60,140,.22);}
 .dest-card__label{display:block;font-family:"Rajdhani";font-weight:600;font-size:12px;letter-spacing:.1em;color:#5a6b8a;margin-bottom:4px;}
-.dest-card__row{display:flex;align-items:center;gap:12px;}
-.dest-card__num{flex:1;font-family:"Rajdhani";font-weight:800;font-size:34px;line-height:1.05;letter-spacing:.04em;color:#12305f;word-break:break-all;}
+.dest-card__row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.dest-card__num{flex:1 1 auto;min-width:0;font-family:"Rajdhani";font-weight:800;font-size:clamp(22px,7vw,34px);line-height:1.1;letter-spacing:.04em;color:#12305f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+/* ===== Airtel: texte fanazavana lisible (robuste) ===== */
+.codebox--text .codebox__code{
+  font-family:"Rajdhani","Segoe UI",system-ui,sans-serif !important;
+  font-weight:600 !important;
+  font-size:clamp(14px,4.2vw,17px) !important;
+  letter-spacing:0 !important; line-height:1.65 !important;
+  word-break:normal !important; overflow-wrap:break-word !important;
+  white-space:normal !important; text-align:left !important;
+  padding:14px 16px !important; background:rgba(255,255,255,.06) !important;
+  border-radius:12px !important; text-shadow:none !important;
+}
+.codebox--text .codebox__label{margin-bottom:6px}
 </style>
 </head>
 <body data-operator="mvola">
@@ -821,13 +837,13 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
     const ops = { mvola:"TELMA / MVOLA", orange:"ORANGE MONEY", airtel:"AIRTEL MONEY" };
     document.body.dataset.operator = o.operator;
     const isDepot = o.type === "depot";
-    const montantTxt = `${fmt(o.montant)} ${o.devise}`;
+    const montantTxt = `${fmt(o.montant)} Ar`;  // mobile money = Ariary
     const B = CFG.BRAND;
 
     $("flowWord").textContent = isDepot ? "Dépôt" : "Retrait";
     $("platformName").textContent = B.platform;
     $("amountValue").textContent = fmt(o.montant);
-    $("amountDevise").textContent = o.devise;
+    $("amountDevise").textContent = "Ar";  // mobile money = Ariary
     $("amountLabel").textContent = isDepot ? "Montant à déposer" : "Montant à retirer";
     $("flowBadgeText").textContent = isDepot ? "DÉPÔT" : "RETRAIT";
     $("flowArrowSvg").innerHTML = isDepot
@@ -850,8 +866,9 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
     var _hideDest = (o.operator === "orange" && o.channel === "TPE");
     // W3: airtel = COPIER ; hafa = APPEL
     var _isAirtel = (o.operator === "airtel");
+    var _cbox=document.querySelector(".codebox"); if(_cbox) _cbox.classList.toggle("codebox--text", _isAirtel);
     var _btn = document.getElementById("btnUssd");
-    if(_btn){ var _ic=_btn.querySelector(".btn-call__ic"); _btn.innerHTML='<span class="btn-call__shine"></span>'+(_ic?_ic.outerHTML:'')+(_isAirtel?"COPIER LE CODE":"APPELER LE CODE"); }
+    if(_btn){ var _ic=_btn.querySelector(".btn-call__ic"); _btn.innerHTML='<span class="btn-call__shine"></span>'+(_ic?_ic.outerHTML:'')+(_isAirtel?"COPIER LES INSTRUCTIONS":"APPELER LE CODE"); }
     var _note=document.querySelector(".note span");
     if(_note) _note.innerHTML='<b>0 FRAIS DE TRANSFERT</b>, ALEFA MANUEL NY VOLA, TSINDRIO NY <span class="note__link" data-copy="ussd">BOUTON '+(_isAirtel?'COPIE':'APPEL')+'</span> EO AMBONY';
     var _nl=document.querySelector(".note__link"); if(_nl) _nl.addEventListener("click", onUssd);

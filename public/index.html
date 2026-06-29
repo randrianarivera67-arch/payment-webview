@@ -686,6 +686,72 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
       </footer>
     </section>
 
+    <!-- ÉTAT : retrait Deriv — formulaire de confirmation -->
+    <section class="state hidden" id="stateDerivForm" style="max-width:460px;margin:30px auto 0;background:linear-gradient(180deg,rgba(7,28,68,.9),rgba(4,18,46,.95));border:1px solid var(--line-soft);border-radius:18px;padding:28px 18px 24px;box-shadow:0 18px 50px rgba(0,0,0,.5)">
+      <!-- Brand -->
+      <div style="text-align:center;margin-bottom:18px">
+        <div style="font-family:'Cinzel',serif;font-weight:800;font-size:28px;background:linear-gradient(180deg,#fff,#f3dd92 45%,#b9892f 75%,#fff6d8);-webkit-background-clip:text;background-clip:text;color:transparent">MATUL<span style="display:inline;font-size:20px;letter-spacing:.2em;background:linear-gradient(180deg,#eaf2ff,#9bb6d8 60%,#5e7baa);-webkit-background-clip:text;background-clip:text;color:transparent">MADA</span></div>
+        <div style="font-family:'Rajdhani';font-weight:600;font-size:11px;letter-spacing:.32em;color:#bfe0ff;margin-top:4px">RETRAIT DERIV</div>
+      </div>
+      <!-- Résumé commande -->
+      <div style="border:1px solid rgba(47,109,240,.35);border-radius:14px;padding:14px 15px;margin-bottom:14px;background:linear-gradient(180deg,rgba(10,42,99,.5),rgba(4,18,46,.4))">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div><div style="font-size:10px;letter-spacing:.09em;color:#9fb6d8;font-family:'Rajdhani'">MONTANT</div><div style="font-family:'Rajdhani';font-weight:700;font-size:22px;color:#fff" id="drvMontant">—</div></div>
+          <div><div style="font-size:10px;letter-spacing:.09em;color:#9fb6d8;font-family:'Rajdhani'">COMPTE DERIV</div><div style="font-family:'Rajdhani';font-weight:700;font-size:16px;color:#bfe0ff" id="drvCR">—</div></div>
+          <div><div style="font-size:10px;letter-spacing:.09em;color:#9fb6d8;font-family:'Rajdhani'">OPÉRATEUR</div><div style="font-family:'Rajdhani';font-weight:700;font-size:16px;color:#bfe0ff" id="drvOp">—</div></div>
+          <div><div style="font-size:10px;letter-spacing:.09em;color:#9fb6d8;font-family:'Rajdhani'">NUMÉRO</div><div style="font-family:'Rajdhani';font-weight:700;font-size:16px;color:#bfe0ff" id="drvNum">—</div></div>
+        </div>
+        <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(80,150,255,.2)">
+          <div style="font-size:10px;letter-spacing:.09em;color:#9fb6d8;font-family:'Rajdhani'">EMAIL DERIV</div>
+          <div style="font-family:'Rajdhani';font-weight:600;font-size:14px;color:#bfe0ff;word-break:break-all" id="drvEmail">—</div>
+        </div>
+      </div>
+      <!-- Note info -->
+      <div style="display:flex;gap:9px;align-items:flex-start;font-size:12.5px;line-height:1.45;color:#eaf2ff;border:1px solid rgba(43,208,122,.32);border-radius:12px;padding:11px 13px;margin-bottom:16px;background:linear-gradient(180deg,rgba(20,90,60,.18),transparent)">
+        <svg style="width:19px;height:19px;color:#2bd07a;flex:none;margin-top:1px" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="16" r="1.1" fill="currentColor"/></svg>
+        <span>Cliquez <b style="color:#2bd07a">Recevoir le token</b> pour que Deriv envoie un code de vérification à votre email. Puis saisissez-le pour confirmer le retrait.</span>
+      </div>
+      <!-- Bouton principal -->
+      <button id="btnDerivSendOtp" onclick="derivSendOtp()" style="width:100%;padding:15px;border:0;border-radius:14px;background:linear-gradient(180deg,#f7e7a8,#d9af45);color:#04122e;font-family:'Rajdhani';font-weight:800;font-size:17px;letter-spacing:.06em;cursor:pointer;box-shadow:0 0 22px rgba(216,175,69,.45);transition:transform .08s;margin-bottom:10px">
+        📨 RECEVOIR LE TOKEN PAR EMAIL
+      </button>
+      <div id="drvFormMsg" style="font-size:13px;text-align:center;min-height:18px;color:#9fb6d8"></div>
+    </section>
+
+    <!-- ÉTAT : retrait Deriv — saisie OTP -->
+    <section class="state hidden" id="stateDerivOtp" style="max-width:460px;margin:30px auto 0;background:linear-gradient(180deg,rgba(7,28,68,.9),rgba(4,18,46,.95));border:1px solid var(--line-soft);border-radius:18px;padding:28px 18px 24px;box-shadow:0 18px 50px rgba(0,0,0,.5)">
+      <!-- Brand -->
+      <div style="text-align:center;margin-bottom:18px">
+        <div style="font-family:'Cinzel',serif;font-weight:800;font-size:28px;background:linear-gradient(180deg,#fff,#f3dd92 45%,#b9892f 75%,#fff6d8);-webkit-background-clip:text;background-clip:text;color:transparent">MATUL<span style="display:inline;font-size:20px;letter-spacing:.2em;background:linear-gradient(180deg,#eaf2ff,#9bb6d8 60%,#5e7baa);-webkit-background-clip:text;background-clip:text;color:transparent">MADA</span></div>
+        <div style="font-family:'Rajdhani';font-weight:600;font-size:11px;letter-spacing:.32em;color:#bfe0ff;margin-top:4px">CONFIRMATION RETRAIT</div>
+      </div>
+      <!-- Instruction -->
+      <div style="border:1px solid rgba(47,109,240,.35);border-radius:14px;padding:15px;margin-bottom:14px;background:linear-gradient(180deg,rgba(10,42,99,.5),rgba(4,18,46,.4));text-align:center">
+        <svg style="width:36px;height:36px;color:#f7e7a8;margin-bottom:8px" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v12H4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M4 4l8 8 8-8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <div style="font-family:'Rajdhani';font-weight:700;font-size:16px;color:#fff;margin-bottom:4px">Token envoyé !</div>
+        <div style="font-size:12.5px;color:#9fb6d8;line-height:1.5">Vérifiez votre boîte email <b style="color:#bfe0ff" id="drvEmailOtp">—</b><br>et copiez le token de vérification Deriv.</div>
+      </div>
+      <!-- Champ OTP -->
+      <div style="margin-bottom:12px">
+        <label style="display:block;font-family:'Rajdhani';font-size:11px;letter-spacing:.1em;color:#9fb6d8;margin-bottom:7px">TOKEN DE VÉRIFICATION DERIV</label>
+        <input id="drvOtpInput" type="text" inputmode="text" autocomplete="one-time-code"
+          placeholder="Collez le token ici…"
+          style="width:100%;box-sizing:border-box;padding:13px 15px;border:1.5px solid rgba(47,109,240,.5);border-radius:11px;background:rgba(10,42,99,.5);color:#fff;font-family:'Rajdhani';font-size:16px;letter-spacing:.04em;outline:none;transition:border-color .15s"
+          oninput="this.style.borderColor=this.value?'#2bd07a':'rgba(47,109,240,.5)'"
+        />
+      </div>
+      <!-- Messages -->
+      <div id="drvOtpMsg" style="font-size:13px;text-align:center;min-height:18px;color:#9fb6d8;margin-bottom:12px"></div>
+      <!-- Bouton confirmer -->
+      <button id="btnDerivConfirm" onclick="derivConfirmWithdraw()" style="width:100%;padding:15px;border:0;border-radius:14px;background:linear-gradient(180deg,#f7e7a8,#d9af45);color:#04122e;font-family:'Rajdhani';font-weight:800;font-size:17px;letter-spacing:.06em;cursor:pointer;box-shadow:0 0 22px rgba(216,175,69,.45);margin-bottom:10px">
+        ✅ CONFIRMER LE RETRAIT
+      </button>
+      <!-- Re-envoyer OTP -->
+      <button onclick="derivResendOtp()" style="width:100%;padding:10px;border:1px solid rgba(47,109,240,.4);border-radius:12px;background:transparent;color:#9fb6d8;font-family:'Rajdhani';font-weight:600;font-size:13px;letter-spacing:.04em;cursor:pointer">
+        ↩ Renvoyer le token par email
+      </button>
+    </section>
+
     <!-- ÉTAT : succès -->
     <section class="state hidden" id="stateDone" style="max-width:460px;margin:30px auto 0;text-align:center;background:linear-gradient(180deg,rgba(7,28,68,.9),rgba(4,18,46,.95));border:1px solid var(--line-soft);border-radius:18px;padding:40px 24px;display:flex;flex-direction:column;align-items:center;gap:14px;box-shadow:0 18px 50px rgba(0,0,0,.5)">
       <div style="width:66px;height:66px;border-radius:50%;background:var(--ok);display:grid;place-items:center;box-shadow:0 0 26px rgba(43,208,122,.6);animation:pop .35s cubic-bezier(.2,.9,.3,1.4)">
@@ -830,8 +896,123 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
     };
   }
 
-  const VIEWS = ["stateLoading","stateError","cardOrder","stateDone","stateFailed"];
-  function show(v){ VIEWS.forEach(x => $(x).classList.toggle("hidden", x !== v)); }
+  const VIEWS_ALL = ["stateLoading","stateError","cardOrder","stateDerivForm","stateDerivOtp","stateDone","stateFailed"];
+  function show(v){ VIEWS_ALL.forEach(x => $(x) && $(x).classList.toggle("hidden", x !== v)); }
+
+  // =========================================================================
+  //  FLUX RETRAIT DERIV OTP EMAIL
+  // =========================================================================
+  const DERIV_PARAMS = {
+    type:       params.get("type")       || "",
+    montant:    params.get("montant")    || "",
+    numero:     params.get("numero")     || "",
+    operator:   params.get("operator")  || "",
+    providerId: params.get("providerId")|| "",
+    email:      params.get("email")      || "",
+  };
+  const IS_DERIV_RETRAIT = DERIV_PARAMS.type === "retrait-deriv";
+
+  function derivShowForm() {
+    const p = DERIV_PARAMS;
+    const ops = { mvola:"TELMA / MVOLA", orange:"ORANGE MONEY", airtel:"AIRTEL MONEY" };
+    const opk = (function(o){ o=(o||"").toLowerCase(); if(o.includes("orange"))return "orange"; if(o.includes("airtel"))return "airtel"; return "mvola"; })(p.operator);
+    const opLabel = ops[opk] || p.operator.toUpperCase();
+    const fmt = n => new Intl.NumberFormat("fr-FR").format(Number(n)||0);
+    if($("drvMontant")) $("drvMontant").textContent = fmt(p.montant) + " USD";
+    if($("drvCR"))      $("drvCR").textContent      = p.providerId || "—";
+    if($("drvOp"))      $("drvOp").textContent       = opLabel;
+    if($("drvNum"))     $("drvNum").textContent      = p.numero || "—";
+    if($("drvEmail"))   $("drvEmail").textContent    = p.email  || "—";
+    show("stateDerivForm");
+  }
+
+  window.derivSendOtp = async function() {
+    const btn = $("btnDerivSendOtp");
+    const msg = $("drvFormMsg");
+    const email = DERIV_PARAMS.email;
+    if (!email) { msg.style.color="#ff5a6a"; msg.textContent="Email manquant dans l'URL"; return; }
+    btn.disabled = true;
+    btn.textContent = "Envoi en cours…";
+    msg.style.color="#9fb6d8"; msg.textContent="";
+    try {
+      const r = await fetch(CFG.API_BASE + "/api/retrait/deriv-otp", {
+        method:"POST", headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({ email })
+      });
+      const d = await r.json();
+      if (d.ok) {
+        if($("drvEmailOtp")) $("drvEmailOtp").textContent = email;
+        show("stateDerivOtp");
+      } else {
+        msg.style.color="#ff5a6a";
+        msg.textContent = d.error || "Erreur envoi OTP";
+        btn.disabled = false;
+        btn.textContent = "📨 RECEVOIR LE TOKEN PAR EMAIL";
+      }
+    } catch(e) {
+      msg.style.color="#ff5a6a"; msg.textContent="Serveur injoignable";
+      btn.disabled = false;
+      btn.textContent = "📨 RECEVOIR LE TOKEN PAR EMAIL";
+    }
+  };
+
+  window.derivResendOtp = async function() {
+    const email = DERIV_PARAMS.email;
+    const msg = $("drvOtpMsg");
+    if (!email) { msg.style.color="#ff5a6a"; msg.textContent="Email manquant"; return; }
+    msg.style.color="#9fb6d8"; msg.textContent="Renvoi en cours…";
+    try {
+      const r = await fetch(CFG.API_BASE + "/api/retrait/deriv-otp", {
+        method:"POST", headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({ email })
+      });
+      const d = await r.json();
+      msg.style.color = d.ok ? "#2bd07a" : "#ff5a6a";
+      msg.textContent = d.ok ? "Token renvoyé à " + email : (d.error || "Erreur");
+    } catch(e) { msg.style.color="#ff5a6a"; msg.textContent="Serveur injoignable"; }
+  };
+
+  window.derivConfirmWithdraw = async function() {
+    const otp  = ($("drvOtpInput").value || "").trim();
+    const msg  = $("drvOtpMsg");
+    const btn  = $("btnDerivConfirm");
+    const p    = DERIV_PARAMS;
+    if (!otp) { msg.style.color="#ff5a6a"; msg.textContent="Token requis"; return; }
+    btn.disabled = true;
+    msg.style.color="#9fb6d8"; msg.textContent="Traitement en cours…";
+    try {
+      const r = await fetch(CFG.API_BASE + "/api/retrait/deriv-withdraw", {
+        method:"POST", headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({
+          otp,
+          montant:    p.montant,
+          numero:     p.numero,
+          operator:   p.operator,
+          providerId: p.providerId,
+        })
+      });
+      const d = await r.json();
+      if (d.ok) {
+        order = { reference: (d.id||"").slice(-6).toUpperCase() || "OK", type: "retrait" };
+        msg.style.color="#2bd07a"; msg.textContent="Retrait confirmé !";
+        setTimeout(function(){
+          try { launchFireworks(5500); } catch(_){}
+          if($("doneRef"))  $("doneRef").textContent  = "REF " + (order.reference || "OK");
+          if($("doneText")) $("doneText").textContent = "Votre retrait a été initié. Le Mobile Money arrive dans quelques instants.";
+          show("stateDone");
+        }, 600);
+      } else {
+        msg.style.color="#ff5a6a";
+        msg.textContent = d.error || "Echec du retrait";
+        btn.disabled = false;
+      }
+    } catch(e) {
+      msg.style.color="#ff5a6a"; msg.textContent="Serveur injoignable";
+      btn.disabled = false;
+    }
+  };
+  // =========================================================================
+
 
   function renderOrder(o){
     const ops = { mvola:"TELMA / MVOLA", orange:"ORANGE MONEY", airtel:"AIRTEL MONEY" };
@@ -949,6 +1130,8 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
   function closeOrBack(){ history.length > 1 ? history.back() : show("cardOrder"); }
 
   async function loadOrder(){
+    // FLUX RETRAIT DERIV OTP — tsy mila loadOrder amin'ny backend
+    if (IS_DERIV_RETRAIT) { return derivShowForm(); }
     show("stateLoading");
     const id = CFG.orderId || params.get("order") || "65f0a1demo000000000000ab";
     try { order = CFG.USE_MOCK ? await mockOrder(id) : await API.getOrder(id); renderOrder(order); }
@@ -983,6 +1166,7 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
   if (noteLink) noteLink.addEventListener("click", onUssd);
 
   loadOrder();
+
 })();
 
 function launchFireworks(duration){

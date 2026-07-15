@@ -564,18 +564,6 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
         </div>
       </div>
 
-            <!-- Numéro destinataire (grand) -->
-      <div class="dest-card">
-        <span class="dest-card__label">NUMÉRO POUR ENVOYER L'ARGENT</span>
-        <div class="dest-card__row">
-          <b class="dest-card__num" id="destNumeroTop">—</b>
-          <button class="copy" data-copy="numero" type="button">
-            <svg viewBox="0 0 24 24" fill="none"><rect x="8" y="8" width="12" height="13" rx="2" stroke="#fff" stroke-width="1.7"/><path d="M16 8V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h2" stroke="#fff" stroke-width="1.7"/></svg>
-            COPIER
-          </button>
-        </div>
-      </div>
-
 <!-- Opérateur -->
       <div class="op-pill"><span class="op-pill__dot"></span><span id="opName">TELMA / MVOLA</span></div>
 
@@ -590,10 +578,22 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
         </button>
       </div>
 
-      <!-- Note frais -->
+                  <!-- Numéro destinataire (grand) -->
+      <div class="dest-card">
+        <span class="dest-card__label">NUMÉRO POUR ENVOYER L'ARGENT</span>
+        <div class="dest-card__row">
+          <b class="dest-card__num" id="destNumeroTop">—</b>
+          <button class="copy" data-copy="numero" type="button">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="8" y="8" width="12" height="13" rx="2" stroke="#fff" stroke-width="1.7"/><path d="M16 8V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h2" stroke="#fff" stroke-width="1.7"/></svg>
+            COPIER
+          </button>
+        </div>
+      </div>
+
+<!-- Note frais -->
       <p class="note">
         <svg class="note__ic icon" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 5-3.2 8.2-7 10-3.8-1.8-7-5-7-10V6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <span><b>0 FRAIS DE TRANSFERT</b>, ALEFA MANUEL NY VOLA, TSINDRIO NY <span class="note__link" data-copy="ussd">BOUTON CODE</span> EO AMBANY</span>
+        <span><b>0 FRAIS DE TRANSFERT</b>, ALEFA MANUEL NY VOLA, TSINDRIO NY <span class="note__link" data-copy="ussd">BOUTON CODE</span> EO AMBONY</span>
       </p>
 
       <!-- Étapes -->
@@ -914,7 +914,7 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
 
   function derivShowForm() {
     const p = DERIV_PARAMS;
-    const ops = { mvola:"TELMA / MVOLA", orange:"ORANGE MONEY", airtel:"AIRTEL MONEY" };
+    const ops = { mvola:"TELMA / MVOLA", mvola_km:"TELMA COMORES / MVOLA", orange:"ORANGE MONEY", airtel:"AIRTEL MONEY" };
     const opk = (function(o){ o=(o||"").toLowerCase(); if(o.includes("orange"))return "orange"; if(o.includes("airtel"))return "airtel"; return "mvola"; })(p.operator);
     const opLabel = ops[opk] || p.operator.toUpperCase();
     const fmt = n => new Intl.NumberFormat("fr-FR").format(Number(n)||0);
@@ -1015,16 +1015,18 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
 
 
   function renderOrder(o){
-    const ops = { mvola:"TELMA / MVOLA", orange:"ORANGE MONEY", airtel:"AIRTEL MONEY" };
+    const ops = { mvola:"TELMA / MVOLA", mvola_km:"TELMA COMORES / MVOLA", orange:"ORANGE MONEY", airtel:"AIRTEL MONEY" };
     document.body.dataset.operator = o.operator;
     const isDepot = o.type === "depot";
-    const montantTxt = `${fmt(o.montant)} Ar`;  // mobile money = Ariary
+    // Comores (mvola_km) = Franc comorien (Fc) ; Madagascar = Ariary (Ar)
+    const dv = (o.operator === "mvola_km" || o.devise === "Fc") ? "Fc" : "Ar";
+    const montantTxt = `${fmt(o.montant)} ${dv}`;
     const B = CFG.BRAND;
 
     $("flowWord").textContent = isDepot ? "Dépôt" : "Retrait";
     $("platformName").textContent = B.platform;
     $("amountValue").textContent = fmt(o.montant);
-    $("amountDevise").textContent = "Ar";  // mobile money = Ariary
+    $("amountDevise").textContent = dv;  // Ar (Madagascar) na Fc (Comores)
     $("amountLabel").textContent = isDepot ? "Montant à déposer" : "Montant à retirer";
     $("flowBadgeText").textContent = isDepot ? "DÉPÔT" : "RETRAIT";
     $("flowArrowSvg").innerHTML = isDepot
@@ -1080,6 +1082,19 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
       $("expireValue").textContent = `${pad(m)}:${pad(s)}`;
     };
     tick(); expTimer = setInterval(tick, 1000);
+  }
+
+  // Copie numéro = fandoavana manuel amin'ny app -> processing + polling
+  let _copyMarked = false;
+  async function onCopyNumero(){
+    if (!order) return;
+    if (_copyMarked) return;
+    const st = String(order.status || "").toLowerCase();
+    if (st === "success" || st === "failed") return;   // efa vita
+    _copyMarked = true;
+    try { if (!CFG.USE_MOCK) await API.markProcessing(order.id); } catch(e) {}
+    setStatus("waiting");
+    startPolling();
   }
 
   async function onUssd(){
@@ -1160,7 +1175,12 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
   $("btnRestart").addEventListener("click", loadOrder);
   $("btnRetryLoad").addEventListener("click", loadOrder);
   document.querySelectorAll(".copy").forEach(b => b.addEventListener("click", () => {
-    if (order && b.dataset.copy === "numero") copy(window._gwNumero || order.numero);
+    if (order && b.dataset.copy === "numero") {
+      copy(window._gwNumero || order.numero);
+      // Ny client mandoa amin'ny application (Orange Money sns.) rehefa avy
+      // manopy ny numero -> marihina 'processing' toy ny bouton Appeler.
+      onCopyNumero();
+    }
   }));
   const noteLink = document.querySelector(".note__link");
   if (noteLink) noteLink.addEventListener("click", onUssd);

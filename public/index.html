@@ -1142,7 +1142,22 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
     show(view);
   }
 
-  function closeOrBack(){ history.length > 1 ? history.back() : show("cardOrder"); }
+  /* Destination du bouton RETOUR.
+     history.back() ne convient pas quand le client arrive d'un paiement
+     externe (Orange Money) : l'entree precedente est la page d'Orange, pas
+     l'espace client. On accepte donc une destination explicite ?back=<url>,
+     avec repli sur l'espace client, puis sur history.back(). */
+  const BACK_DEFAUT = "https://matulmad.vercel.app/";
+  function urlRetour(){
+    const b = params.get("back");
+    if (b && /^https?:\/\//i.test(b)) return b;
+    return BACK_DEFAUT;
+  }
+  function closeOrBack(){
+    const u = urlRetour();
+    if (u) { location.href = u; return; }
+    history.length > 1 ? history.back() : show("cardOrder");
+  }
 
   async function loadOrder(){
     // FLUX RETRAIT DERIV OTP — tsy mila loadOrder amin'ny backend

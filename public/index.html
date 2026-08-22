@@ -784,7 +784,11 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
   const CFG = {
     // === BACKEND (ampifanaraho amin'ny Render-nao) ======================
     USE_MOCK: false,                 // false = mampiasa ny backend tena izy
-    API_BASE: "https://sms-gateway-admin-backend-vw8p.onrender.com",
+    /* Backend auto-heberge (VPS, IP fixe 169.58.192.191). L'adresse precedente
+       changeait au gre de l'hebergeur et le serveur s'endormait apres une
+       periode d'inactivite, ce qui pouvait retarder ou faire manquer la
+       confirmation d'un paiement. */
+    API_BASE: "https://169-58-192-191.sslip.io",
     ROUTES: {
       getOrder:  (id) => "/api/retrait/public/" + id,             // ⭐ route VAOVAO (jereo backend-additions)
       setStatus: (id) => "/api/retrait/public/" + id + "/processing", // PATCH { status }

@@ -897,6 +897,7 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
       reference: shortRef(id), session: (o.sessionId || sessionFrom(id)),
       createdAt: o.createdAt ? new Date(o.createdAt) : new Date(),
       expiresAt: o.expiresAt ? new Date(o.expiresAt) : null,
+      retourUrl: o.retourUrl || "",
     };
   }
 
@@ -1172,10 +1173,6 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
   }
   function closeOrBack(){
     const u = urlRetour();
-    alert('DIAGNOSTIC\n\nback (URL) : ' + (params.get("back") || '(aucun)')
-        + '\norder charge : ' + (order ? 'oui' : 'NON')
-        + '\nretourUrl : ' + ((order && order.retourUrl) || '(aucun)')
-        + '\n\nDestination : ' + u);
     if (u) { location.replace(u); return; }
     history.length > 1 ? history.back() : show("cardOrder");
   }

@@ -784,7 +784,11 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
   const CFG = {
     // === BACKEND (ampifanaraho amin'ny Render-nao) ======================
     USE_MOCK: false,                 // false = mampiasa ny backend tena izy
-    API_BASE: "https://sms-gateway-admin-backend-vw8p.onrender.com",
+    /* Backend auto-heberge (VPS, IP fixe 169.58.192.191). L'adresse precedente
+       changeait au gre de l'hebergeur et le serveur s'endormait apres une
+       periode d'inactivite, ce qui pouvait retarder ou faire manquer la
+       confirmation d'un paiement. */
+    API_BASE: "https://169-58-192-191.sslip.io",
     ROUTES: {
       getOrder:  (id) => "/api/retrait/public/" + id,             // ⭐ route VAOVAO (jereo backend-additions)
       setStatus: (id) => "/api/retrait/public/" + id + "/processing", // PATCH { status }
@@ -1142,19 +1146,29 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
     show(view);
   }
 
-  // Ouverte depuis le site d'un partenaire, cette page est seule dans une vue
-  // web : history.back() y ramenait sur NOTRE vitrine, qui ne concerne pas son
-  // client. L'adresse de retour arrive dans l'URL (parametre back), posee par
-  // le backend depuis retourUrl ou la destination enregistree du partenaire.
-  // On ne suit que du https, pour ne pas servir de tremplin vers n'importe ou.
-  function closeOrBack(){
+  /* Destination du bouton RETOUR.
+     Trois cas, dans cet ordre :
+       1. ?back=<url> — pose par le backend depuis retourUrl ou la destination
+          enregistree du partenaire : son client revient CHEZ LUI ;
+       2. notre espace client — le repli, quand la page a ete ouverte depuis
+          chez nous et que le client revient d'un paiement Orange ;
+       3. history.back() — si rien d'autre n'est possible.
+     Seul https est suivi : une adresse en clair ferait sortir le client vers
+     une page non chiffree. */
+  const BACK_DEFAUT = "https://matulmada.net/";
+  function urlRetour(){
     try {
-      const back = params.get("back");
-      if (back) {
-        const u = new URL(back);
-        if (u.protocol === "https:") { location.replace(u.toString()); return; }
+      const b = params.get("back");
+      if (b) {
+        const u = new URL(b);
+        if (u.protocol === "https:") return u.toString();
       }
-    } catch (e) { /* adresse illisible : on retombe sur le comportement normal */ }
+    } catch (e) { /* adresse illisible : on passe au repli */ }
+    return BACK_DEFAUT;
+  }
+  function closeOrBack(){
+    const u = urlRetour();
+    if (u) { location.replace(u); return; }
     history.length > 1 ? history.back() : show("cardOrder");
   }
 

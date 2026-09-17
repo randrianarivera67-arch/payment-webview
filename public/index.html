@@ -1142,7 +1142,21 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
     show(view);
   }
 
-  function closeOrBack(){ history.length > 1 ? history.back() : show("cardOrder"); }
+  // Ouverte depuis le site d'un partenaire, cette page est seule dans une vue
+  // web : history.back() y ramenait sur NOTRE vitrine, qui ne concerne pas son
+  // client. L'adresse de retour arrive dans l'URL (parametre back), posee par
+  // le backend depuis retourUrl ou la destination enregistree du partenaire.
+  // On ne suit que du https, pour ne pas servir de tremplin vers n'importe ou.
+  function closeOrBack(){
+    try {
+      const back = params.get("back");
+      if (back) {
+        const u = new URL(back);
+        if (u.protocol === "https:") { location.replace(u.toString()); return; }
+      }
+    } catch (e) { /* adresse illisible : on retombe sur le comportement normal */ }
+    history.length > 1 ? history.back() : show("cardOrder");
+  }
 
   async function loadOrder(){
     // FLUX RETRAIT DERIV OTP — tsy mila loadOrder amin'ny backend

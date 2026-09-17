@@ -1157,13 +1157,17 @@ body{ background:url('hero.png') center center / cover no-repeat fixed !importan
      une page non chiffree. */
   const BACK_DEFAUT = "https://matulmada.net/";
   function urlRetour(){
-    try {
-      const b = params.get("back");
-      if (b) {
-        const u = new URL(b);
+    // Deux sources, dans cet ordre : le parametre d'URL, puis la destination
+    // enregistree avec l'ordre. La seconde sauve le cas ou le partenaire
+    // reconstruit l'adresse a la main et perd le parametre.
+    const candidats = [params.get("back"), order && order.retourUrl];
+    for (const c of candidats) {
+      if (!c) continue;
+      try {
+        const u = new URL(c);
         if (u.protocol === "https:") return u.toString();
-      }
-    } catch (e) { /* adresse illisible : on passe au repli */ }
+      } catch (e) { /* adresse illisible : on essaie la suivante */ }
+    }
     return BACK_DEFAUT;
   }
   function closeOrBack(){

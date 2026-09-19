@@ -1,0 +1,7 @@
+# La redirection de paiement Orange (/pay/go/:id) est servie par le backend :
+# lui seul connait l'adresse Orange a suivre. Sans cette regle, Cloudflare
+# renvoyait la page de suivi a la place, et le client tournait en rond au lieu
+# d'arriver chez Orange.
+/pay/go/*  https://169-58-192-191.sslip.io/pay/go/:splat  302
+
+# Tout le reste continue d'etre servi par la page de suivi.
